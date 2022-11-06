@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import optimismRed from "../../assets/svg/OPTIMISM-R.svg";
 
+import ConnectWalletButton from "./ConnectWalletButton";
+
 const Nav = styled.nav`
   height: 72px;
   display: flex;
@@ -31,7 +33,7 @@ const NavBar = () => {
             </LeftSection>
             
             <RightSection>
-                Connect Wallet
+                <ConnectWalletButton />
             </RightSection>
         </Nav>
     )
