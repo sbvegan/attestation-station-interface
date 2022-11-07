@@ -10,6 +10,7 @@ import {
 // import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { publicProvider } from "wagmi/providers/public";
+import Attestations from "./components/Attestations";
 
 import Header from "./components/Header"
 
@@ -75,7 +76,7 @@ export default function App() {
           <Header />
         </HeaderWrapper>
         <BodyWrapper>
-          hi
+          <Attestations />
         </BodyWrapper>
     </WagmiConfig>
       </AppWrapper>
