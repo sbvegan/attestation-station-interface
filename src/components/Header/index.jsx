@@ -1,7 +1,10 @@
-import styled from "styled-components";
 import optimismRed from "../../assets/svg/OPTIMISM-R.svg";
 
+import { useAccount } from 'wagmi'
+import styled from "styled-components";
+
 import ConnectWalletButton from "./ConnectWalletButton";
+import AccountInfo from "./AccountInfo";
 
 const Nav = styled.nav`
   height: 72px;
@@ -25,7 +28,9 @@ const LeftSection = styled.section`
 const RightSection = styled.section`
 `
 
-const NavBar = () => {
+const Header = () => {
+    const { isConnected } = useAccount()
+
     return(
         <Nav>
             <LeftSection>
@@ -33,10 +38,15 @@ const NavBar = () => {
             </LeftSection>
             
             <RightSection>
-                <ConnectWalletButton />
+                {isConnected ? 
+                    <AccountInfo /> 
+                    : 
+                    <ConnectWalletButton />
+                }
+                
             </RightSection>
         </Nav>
     )
 }
 
-export default NavBar;
+export default Header;

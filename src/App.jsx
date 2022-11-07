@@ -5,13 +5,13 @@ import {
   configureChains, 
   chain 
 } from "wagmi"
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+// import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
+// import { InjectedConnector } from 'wagmi/connectors/injected'
+// import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { publicProvider } from "wagmi/providers/public";
 
-import NavBar from "./components/NavBar"
+import Header from "./components/Header"
 
 const AppWrapper = styled.div`
   display: flex;
@@ -33,25 +33,25 @@ const client = createClient({
   autoConnect: true,
   connectors: [
     new MetaMaskConnector({ chains }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: 'wagmi',
-      },
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        qrcode: true,
-      },
-    }),
-    new InjectedConnector({
-      chains,
-      options: {
-        name: 'Injected',
-        shimDisconnect: true,
-      },
-    }),
+    // new CoinbaseWalletConnector({
+    //   chains,
+    //   options: {
+    //     appName: 'wagmi',
+    //   },
+    // }),
+    // new WalletConnectConnector({
+    //   chains,
+    //   options: {
+    //     qrcode: true,
+    //   },
+    // }),
+    // new InjectedConnector({
+    //   chains,
+    //   options: {
+    //     name: 'Injected',
+    //     shimDisconnect: true,
+    //   },
+    // }),
   ],
   provider,
   webSocketProvider
@@ -62,7 +62,7 @@ export default function App() {
     <WagmiConfig client={client}>
       <AppWrapper>
         <HeaderWrapper>
-          <NavBar />
+          <Header />
         </HeaderWrapper>
       </AppWrapper>
     </WagmiConfig>
