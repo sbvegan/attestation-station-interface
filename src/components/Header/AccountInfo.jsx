@@ -1,23 +1,26 @@
-import {
-    useAccount,
-    useConnect,
-    useDisconnect,
-    useEnsAvatar,
-    useEnsName,
-} from 'wagmi'
+import styled from "styled-components";
+
+import AddressDisplay from "./AddressDisplay";
+import DisconnectButton from './DisconnectButton'
+import NetworkSwitcher from "./NetworkSwitcher";
+
+const AccountInfoWrapper = styled.div`
+  height: 72px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 24px;
+`
 
 const AccountInfo = () => {
-    const { address, connector, isConnected } = useAccount()
-
-    const { data: ensName } = useEnsName({ address })
-    const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
-    const { disconnect } = useDisconnect()
-
     return (
-        <div>
-            <div>{ensName ? `${ensName} (${address})` : address}</div>
-            <button onClick={disconnect}>Disconnect</button>
-        </div>
+        <AccountInfoWrapper>
+            <NetworkSwitcher />
+            <AddressDisplay />
+            <DisconnectButton />
+        </AccountInfoWrapper>
     )
 
 }

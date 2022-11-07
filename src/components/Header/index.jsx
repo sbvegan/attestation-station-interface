@@ -19,7 +19,7 @@ const Nav = styled.nav`
 const LeftSection = styled.section`
   box-sizing: border-box;
   color: rgb(255, 4, 32);
-  font-family: Rubik, snas-serif;
+  font-family: Rubik, sans-serif;
   font-size: 28px;
   font-style: italic;
   font-weight: 700;
