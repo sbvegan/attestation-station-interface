@@ -43,7 +43,6 @@ const Header = () => {
                     : 
                     <ConnectWalletButton />
                 }
-                
             </RightSection>
         </Nav>
     )
