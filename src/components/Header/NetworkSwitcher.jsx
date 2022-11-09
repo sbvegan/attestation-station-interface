@@ -26,6 +26,7 @@ const Button = styled.button`
 `
 
 const NetworkDropDownMenu = styled.div`
+  background-color: #fff;
   border: 1px solid #cbd5e0;
   border-radius: 10px;
   box-sizing: border-box;
@@ -62,7 +63,7 @@ const MenuButton = styled.button`
   justify-content: flex-start;
   line-height: 24px;
   padding: 12px 16px;
-  margin: 0 0 2px 0;
+  margin: 0 0 8px 0;
 `
 
 const NetworkSwitcher = () => {
