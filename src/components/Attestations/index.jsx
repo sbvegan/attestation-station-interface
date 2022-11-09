@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import AttestationForm from "./AttestationForm";
 
-const AttestationsWrapper = styled.div`
+const AttestationsFormContainer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -13,9 +13,9 @@ const AttestationsWrapper = styled.div`
 const Attestations = () => {
 
     return(
-        <AttestationsWrapper>
+        <AttestationsFormContainer>
             <AttestationForm />
-        </AttestationsWrapper>
+        </AttestationsFormContainer>
     )
 }
 

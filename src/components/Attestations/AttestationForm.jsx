@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const AttestationFormWrapper = styled.div`
@@ -24,18 +25,38 @@ const Link = styled.a`
   text-decoration-line: none;
   text-decoration-style: none;
 
+  ${({ active }) => active && `
+    background: red;
+  `}
 `
 
 
 const AttestationForm = () => {
 
+    const [active, setActive] = useState(0)
+
     return(
         <AttestationFormWrapper>
-            <LinkWrapper>
-                <Link>Attest</Link>
-                <Link>Read Attestation</Link>
-                <Link>About</Link>
-            </LinkWrapper>
+          <LinkWrapper>
+            <Link 
+              active={active === 0}
+              onClick={() => setActive(0)}
+            >
+              Attest
+            </Link>
+            <Link 
+              active={active === 1}
+              onClick={() => setActive(1)}
+            >
+              Read Attestation
+            </Link>
+            <Link 
+              active={active === 2}
+              onClick={() => setActive(2)}
+            >
+              About
+            </Link>
+          </LinkWrapper>
         </AttestationFormWrapper>
     )
 }
