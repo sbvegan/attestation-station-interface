@@ -46,18 +46,18 @@ const SubmitButton = styled.button`
   }
 `
 
-const Attest = () => {
+const ReadAttestation = () => {
     return (
         <AttestForm>
-            <FormLabel>ETH address</FormLabel>
+            <FormLabel>Creator's ETH address</FormLabel>
+            <Input type="text" placeholder="Who's this attestation about?"/>
+            <FormLabel>Subject's ETH address</FormLabel>
             <Input type="text" placeholder="Who's this attestation about?"/>
             <FormLabel>Attestation key</FormLabel>
             <Input type="text" placeholder="Attestation key" />
-            <FormLabel>Attestation value</FormLabel>
-            <Input type="text" placeholder="Attestation value" />
-            <SubmitButton>Make attestation</SubmitButton>
+            <SubmitButton>Read attestation</SubmitButton>
         </AttestForm>
     )
 }
 
-export default Attest;
+export default ReadAttestation;

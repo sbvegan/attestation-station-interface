@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import Attest from "./Attest";
-
+import ReadAttestation from "./ReadAttestation";
+import AboutAttestations from "./AboutAttestations";
 
 const AttestationFormContent = (props) => {
 
@@ -10,12 +10,11 @@ const AttestationFormContent = (props) => {
         case 0:
             return <Attest />
         case 1: 
-            return <div>Read Attestation</div>
+            return <ReadAttestation />
         case 2: 
-            return <div>About</div>
+            return <AboutAttestations />
         default:
-            return <div>oops...</div>
-    
+            return <div>How'd you get here???</div>
     }
 }
 
