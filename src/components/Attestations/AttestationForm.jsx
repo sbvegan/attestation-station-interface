@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import AttestationFormContent from "./AttestationFormContent";
 
 const AttestationFormWrapper = styled.div`
   align-items: center;
@@ -26,7 +27,8 @@ const Link = styled.a`
   text-decoration-style: none;
 
   ${({ active }) => active && `
-    background: red;
+    color: #ff0420;
+    font-weight: 700;
   `}
 `
 
@@ -57,6 +59,7 @@ const AttestationForm = () => {
               About
             </Link>
           </LinkWrapper>
+          <AttestationFormContent active={active} />
         </AttestationFormWrapper>
     )
 }

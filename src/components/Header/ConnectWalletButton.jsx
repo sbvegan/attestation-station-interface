@@ -11,12 +11,8 @@ const Button = styled.button`
   font-weight: 700;
   height: 40px;
   margin: 0 6px;
-  outline: none;
   padding: 0 12px;
-  transition-delay: 0s;
-  transition-duration: 0.2s;
-  transition-property: all;
-  transition-timing-function: ease;
+  transition: all 0.2s ease;
   &:hover {
     cursor: pointer;
     background-color: rgb(235, 0, 26);
