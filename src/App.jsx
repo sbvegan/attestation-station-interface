@@ -1,28 +1,20 @@
-import '@rainbow-me/rainbowkit/styles.css';
-
-import { 
-  RainbowKitProvider,
-  connectorsForWallets 
-} from '@rainbow-me/rainbowkit';
-import {
-  injectedWallet,
-  rainbowWallet,
-  metaMaskWallet,
-  coinbaseWallet
-} from '@rainbow-me/rainbowkit/wallets';
-
 import styled from "styled-components";
+
+import '@rainbow-me/rainbowkit/styles.css';
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
+
 import { 
   chain,
   configureChains, 
   createClient,
   WagmiConfig,
 } from "wagmi"
-
 import { publicProvider } from "wagmi/providers/public";
 
 import Attestations from "./components/Attestations";
-
 import Header from "./components/Header"
 
 const AppWrapper = styled.div`
@@ -46,21 +38,10 @@ const { chains, provider, webSocketProvider } = configureChains(
   [publicProvider()]
 )
 
-const wallets = [
-  injectedWallet({ chains }),
-  rainbowWallet({ chains }),
-  metaMaskWallet({ chains }),
-  coinbaseWallet({ chains, appName: 'Attestation Station Interface' }),
-];
-
-const connectors = connectorsForWallets([
-  {
-    groupName: 'Recommended',
-    wallets
-  },
-]);
-
-
+const { connectors } = getDefaultWallets({
+  appName: 'Attestation Station Interface',
+  chains
+});
 
 const client = createClient({
   autoConnect: true,
