@@ -1,25 +1,32 @@
+import '@rainbow-me/rainbowkit/styles.css';
+
+import { 
+  RainbowKitProvider,
+  connectorsForWallets 
+} from '@rainbow-me/rainbowkit';
+import {
+  injectedWallet,
+  rainbowWallet,
+  metaMaskWallet,
+  coinbaseWallet
+} from '@rainbow-me/rainbowkit/wallets';
+
 import styled from "styled-components";
 import { 
-  WagmiConfig,
-  createClient,
+  chain,
   configureChains, 
-  chain 
+  createClient,
+  WagmiConfig,
 } from "wagmi"
-// import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-// import { InjectedConnector } from 'wagmi/connectors/injected'
-// import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+
 import { publicProvider } from "wagmi/providers/public";
+
 import Attestations from "./components/Attestations";
 
 import Header from "./components/Header"
 
 const AppWrapper = styled.div`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
+  background-color: #f1f4f9;
 `
 
 const HeaderWrapper = styled.div`
@@ -29,7 +36,6 @@ const HeaderWrapper = styled.div`
 `
 
 const BodyWrapper = styled.div`
-  background-color: #f1f4f9;
   height: calc(100vh - 72px);
   width: 100%;
 `
@@ -40,30 +46,25 @@ const { chains, provider, webSocketProvider } = configureChains(
   [publicProvider()]
 )
 
+const wallets = [
+  injectedWallet({ chains }),
+  rainbowWallet({ chains }),
+  metaMaskWallet({ chains }),
+  coinbaseWallet({ chains, appName: 'Attestation Station Interface' }),
+];
+
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets
+  },
+]);
+
+
+
 const client = createClient({
   autoConnect: true,
-  connectors: [
-    new MetaMaskConnector({ chains }),
-    // new CoinbaseWalletConnector({
-    //   chains,
-    //   options: {
-    //     appName: 'wagmi',
-    //   },
-    // }),
-    // new WalletConnectConnector({
-    //   chains,
-    //   options: {
-    //     qrcode: true,
-    //   },
-    // }),
-    // new InjectedConnector({
-    //   chains,
-    //   options: {
-    //     name: 'Injected',
-    //     shimDisconnect: true,
-    //   },
-    // }),
-  ],
+  connectors,
   provider,
   webSocketProvider
 })
@@ -71,14 +72,16 @@ const client = createClient({
 export default function App() {
   return (
     <AppWrapper>
-        <WagmiConfig client={client}>
-        <HeaderWrapper>
-          <Header />
-        </HeaderWrapper>
-        <BodyWrapper>
-          <Attestations />
-        </BodyWrapper>
-    </WagmiConfig>
-      </AppWrapper>
+      <WagmiConfig client={client}>
+        <RainbowKitProvider chains={chains}>
+          <HeaderWrapper>
+            <Header />
+          </HeaderWrapper>
+          <BodyWrapper>
+            <Attestations />
+          </BodyWrapper>
+          </RainbowKitProvider>
+      </WagmiConfig>
+    </AppWrapper>
   );
 }
