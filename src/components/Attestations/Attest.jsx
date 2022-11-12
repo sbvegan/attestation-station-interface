@@ -1,6 +1,15 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { ethers } from "ethers";
+import {
+  usePrepareContractWrite,
+  useContractWrite,
+  useWaitForTransaction,
+} from 'wagmi'
+import { AttestationStationOptimismGoerliAddress } from "../../constants/addresses";
+import AttestationStationABI from "../../constants/abi.json"
 
-const AttestForm = styled.form`
+const AttestContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -47,17 +56,39 @@ const SubmitButton = styled.button`
 `
 
 const Attest = () => {
-    return (
-        <AttestForm>
-            <FormLabel>ETH address</FormLabel>
-            <Input type="text" placeholder="Who's this attestation about?"/>
-            <FormLabel>Attestation key</FormLabel>
-            <Input type="text" placeholder="Attestation key" />
-            <FormLabel>Attestation value</FormLabel>
-            <Input type="text" placeholder="Attestation value" />
-            <SubmitButton>Make attestation</SubmitButton>
-        </AttestForm>
-    )
+
+  const [about, setAbout] = useState("")
+  const [key, setKey] = useState("")
+  const [value, setValue] = useState("")
+
+  return (
+    <AttestContainer>
+      <FormLabel>ETH address</FormLabel>
+      <Input 
+        type="text" 
+        onChange={(e) => setAbout(e.target.value)}
+        placeholder="Who's this attestation about?"
+        value={about}
+      />
+      <FormLabel>Attestation key</FormLabel>
+      <Input 
+        type="text" 
+        onChange={(e) => setKey(e.target.value)}
+        placeholder="Attestation key" 
+        value={key}
+      />
+      <FormLabel>Attestation value</FormLabel>
+      <Input 
+        type="text" 
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Attestation value" 
+        value={value}
+      />
+      <SubmitButton>
+        Make attestation
+      </SubmitButton>
+    </AttestContainer>
+  )
 }
 
 export default Attest;
