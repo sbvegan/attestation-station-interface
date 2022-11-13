@@ -1,4 +1,13 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { ethers } from "ethers";
+import {
+  usePrepareContractWrite,
+  useContractWrite,
+  useWaitForTransaction,
+} from 'wagmi'
+import { AttestationStationOptimismGoerliAddress } from "../../constants/addresses";
+import AttestationStationABI from "../../constants/abi.json"
 
 const AttestForm = styled.form`
   display: flex;
@@ -46,18 +55,82 @@ const SubmitButton = styled.button`
   }
 `
 
+/**
+ * TODO:
+ *  - input validation
+ *  - helper tooltips
+ *  - error handling
+ *  - user feedback
+ *  - message success/failure 
+ *  - blockchain explorer link
+ *  - handle optimism mainnet and testnet switching
+ *  - use keccack256 for the key and go along with the attestation convention
+ */
+
 const Attest = () => {
-    return (
-        <AttestForm>
-            <FormLabel>ETH address</FormLabel>
-            <Input type="text" placeholder="Who's this attestation about?"/>
-            <FormLabel>Attestation key</FormLabel>
-            <Input type="text" placeholder="Attestation key" />
-            <FormLabel>Attestation value</FormLabel>
-            <Input type="text" placeholder="Attestation value" />
-            <SubmitButton>Make attestation</SubmitButton>
-        </AttestForm>
-    )
+  const [about, setAbout] = useState("")
+  const [key, setKey] = useState("")
+  const [val, setVal] = useState("")
+  const [attestation, setAttestation] = useState({
+    about: about,
+    key: key,
+    val: val
+  })
+
+  const { config } = usePrepareContractWrite({
+    address: AttestationStationOptimismGoerliAddress,
+    abi: AttestationStationABI,
+    functionName: "attest",
+    args: [
+      [attestation]
+    ],
+    enabled: Boolean(about) && Boolean(key) && Boolean(val)
+  })
+  const { write } = useContractWrite(config)
+
+  useEffect(() => {
+    const attest = {
+      about: about,
+      key: ethers.utils.formatBytes32String(key),
+      val: ethers.utils.toUtf8Bytes(val)
+    }
+    setAttestation(attest)
+  }, [about, key, val])
+
+  return (
+    <AttestForm
+      onSubmit={(e) => {
+        e.preventDefault()
+        write?.()
+      }}
+    >
+      <FormLabel>ETH address</FormLabel>
+      <Input 
+        type="text" 
+        onChange={(e) => setAbout(e.target.value)}
+        placeholder="Who's this attestation about?"
+        value={about}
+      />
+      <FormLabel>Attestation key</FormLabel>
+      <Input 
+        type="text" 
+        onChange={(e) => setKey(e.target.value)}
+        // onChange={(e) => setKey(formatKey(e.target.value))}
+        placeholder="Attestation key" 
+        value={key}
+      />
+      <FormLabel>Attestation value</FormLabel>
+      <Input 
+        type="text" 
+        onChange={(e) => setVal(e.target.value)}
+        placeholder="Attestation value" 
+        value={val}
+      />
+      <SubmitButton disabled={!write}>
+        Make attestation
+      </SubmitButton>
+    </AttestForm>
+  )
 }
 
 export default Attest;
