@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ethers } from "ethers";
 import {
@@ -9,7 +9,7 @@ import {
 import { AttestationStationOptimismGoerliAddress } from "../../constants/addresses";
 import AttestationStationABI from "../../constants/abi.json"
 
-const AttestContainer = styled.div`
+const AttestForm = styled.form`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -56,13 +56,42 @@ const SubmitButton = styled.button`
 `
 
 const Attest = () => {
-
   const [about, setAbout] = useState("")
   const [key, setKey] = useState("")
-  const [value, setValue] = useState("")
+  const [val, setVal] = useState("")
+  const [attestation, setAttestation] = useState({
+    about: about,
+    key: key,
+    val: val
+  })
+
+  const { config } = usePrepareContractWrite({
+    address: AttestationStationOptimismGoerliAddress,
+    abi: AttestationStationABI,
+    functionName: "attest",
+    args: [
+      [attestation]
+    ],
+    enabled: Boolean(about) && Boolean(key) && Boolean(val)
+  })
+  const { write } = useContractWrite(config)
+
+  useEffect(() => {
+    const attest = {
+      about: about,
+      key: ethers.utils.formatBytes32String(key),
+      val: ethers.utils.toUtf8Bytes(val)
+    }
+    setAttestation(attest)
+  }, [about, key, val])
 
   return (
-    <AttestContainer>
+    <AttestForm
+      onSubmit={(e) => {
+        e.preventDefault()
+        write?.()
+      }}
+    >
       <FormLabel>ETH address</FormLabel>
       <Input 
         type="text" 
@@ -74,20 +103,21 @@ const Attest = () => {
       <Input 
         type="text" 
         onChange={(e) => setKey(e.target.value)}
+        // onChange={(e) => setKey(formatKey(e.target.value))}
         placeholder="Attestation key" 
         value={key}
       />
       <FormLabel>Attestation value</FormLabel>
       <Input 
         type="text" 
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setVal(e.target.value)}
         placeholder="Attestation value" 
-        value={value}
+        value={val}
       />
-      <SubmitButton>
+      <SubmitButton disabled={!write}>
         Make attestation
       </SubmitButton>
-    </AttestContainer>
+    </AttestForm>
   )
 }
 
