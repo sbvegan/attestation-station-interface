@@ -55,6 +55,18 @@ const SubmitButton = styled.button`
   }
 `
 
+/**
+ * TODO:
+ *  - input validation
+ *  - helper tooltips
+ *  - error handling
+ *  - user feedback
+ *  - message success/failure 
+ *  - blockchain explorer link
+ *  - handle optimism mainnet and testnet switching
+ *  - use keccack256 for the key and go along with the attestation convention
+ */
+
 const Attest = () => {
   const [about, setAbout] = useState("")
   const [key, setKey] = useState("")
