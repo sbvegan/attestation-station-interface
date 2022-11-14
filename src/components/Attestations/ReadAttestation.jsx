@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const AttestForm = styled.form`
@@ -47,17 +48,37 @@ const SubmitButton = styled.button`
 `
 
 const ReadAttestation = () => {
-    return (
-        <AttestForm>
-            <FormLabel>Creator's ETH address</FormLabel>
-            <Input type="text" placeholder="Who's this attestation about?"/>
-            <FormLabel>Subject's ETH address</FormLabel>
-            <Input type="text" placeholder="Who's this attestation about?"/>
-            <FormLabel>Attestation key</FormLabel>
-            <Input type="text" placeholder="Attestation key" />
-            <SubmitButton>Read attestation</SubmitButton>
-        </AttestForm>
-    )
+
+  const [creator, setCreator] = useState("")
+  const [about, setAbout] = useState("")
+  const [key, setKey] = useState("")
+
+  return (
+    <AttestForm>
+      <FormLabel>Creator's ETH address</FormLabel>
+      <Input 
+        type="text" 
+        placeholder="Who created this attestation?"
+        onChange={(e) => setCreator(e.target.value)}
+        value={creator}
+      />
+      <FormLabel>Subject's ETH address</FormLabel>
+      <Input 
+        type="text" 
+        placeholder="Who's this attestation about?"
+        onChange={(e) => setAbout(e.target.value)}
+        value={about}
+      />
+      <FormLabel>Attestation key</FormLabel>
+      <Input 
+        type="text" 
+        placeholder="Attestation key" 
+        onChange={(e) => setKey(e.target.value)}
+        value={key}
+      />
+      <SubmitButton>Read attestation</SubmitButton>
+    </AttestForm>
+  )
 }
 
 export default ReadAttestation;
