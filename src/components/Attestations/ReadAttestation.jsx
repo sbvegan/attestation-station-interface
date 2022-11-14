@@ -1,5 +1,9 @@
 import { useState } from "react";
+import { ethers } from "ethers";
 import styled from "styled-components";
+import { useContractRead } from "wagmi";
+import { AttestationStationOptimismGoerliAddress } from "../../constants/addresses";
+import AttestationStationABI from "../../constants/abi.json"
 
 const AttestForm = styled.form`
   display: flex;
@@ -28,30 +32,30 @@ const Input = styled.input`
   width: 420px;
 `
 
-const SubmitButton = styled.button`
-  background-color: #ff0420;
-  border: none;
-  border-radius: 12px;
-  box-sizing: border-box;
-  color: rgb(255, 255, 255);
-  font-size: 18px;
-  font-weight: 700;
-  height: 60px;
-  width: 100%;
-  margin-top: 16px;
-  padding: 0 24px;
-  transition: all 0.2s ease;
-  &:hover {
-    cursor: pointer;
-    background-color: rgb(235, 0, 26);
-  }
-`
+/**
+ * TODO:
+ *  - input validation
+ *  - helper tooltips
+ *  - error handling
+ *  - user feedback
+ *  - handle optimism mainnet and testnet switching
+ *  - use keccack256 for the key and go along with the attestation convention
+ */
 
 const ReadAttestation = () => {
 
   const [creator, setCreator] = useState("")
   const [about, setAbout] = useState("")
   const [key, setKey] = useState("")
+  const [bytes32Key, setBytes32Key] = useState("")
+
+  const { data, isError, isLoading } = useContractRead({
+    address: AttestationStationOptimismGoerliAddress,
+    abi: AttestationStationABI,
+    functionName: "attestations",
+    args: [creator, about, bytes32Key],
+    enabled: Boolean(creator) && Boolean(about) && Boolean(bytes32Key)
+  })
 
   return (
     <AttestForm>
@@ -73,10 +77,14 @@ const ReadAttestation = () => {
       <Input 
         type="text" 
         placeholder="Attestation key" 
-        onChange={(e) => setKey(e.target.value)}
+        onChange={(e) => {
+          setKey(e.target.value)
+          setBytes32Key(ethers.utils.formatBytes32String(e.target.value))
+        }}
         value={key}
       />
-      <SubmitButton>Read attestation</SubmitButton>
+      <p>{data}</p>
+      <p>{data? ethers.utils.toUtf8String(data): ""}</p>
     </AttestForm>
   )
 }
