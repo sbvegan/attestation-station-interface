@@ -34,6 +34,9 @@ const Input = styled.input`
   outline-style: none;
   padding: 9px 12px;
   width: 420px;
+  ${({ valid }) => !valid && `
+  border-color: #ff0420;
+`}
 `
 
 const SubmitButton = styled.button`
@@ -57,7 +60,6 @@ const SubmitButton = styled.button`
 
 /**
  * TODO:
- *  - input validation
  *  - helper tooltips
  *  - error handling
  *  - user feedback
@@ -77,6 +79,10 @@ const Attest = () => {
     val: val
   })
 
+  const [isAboutValid, setIsAboutValid] = useState(false)
+  const [isKeyValid, setIsKeyValid] = useState(false)
+  const [isValValid, setIsValValid] = useState(false)
+
   const { config } = usePrepareContractWrite({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
@@ -95,6 +101,10 @@ const Attest = () => {
       val: ethers.utils.toUtf8Bytes(val)
     }
     setAttestation(attest)
+    setIsAboutValid(ethers.utils.isAddress(about))
+    // todo: make this more robust
+    setIsKeyValid(key !== "")
+    setIsValValid(val !== "")
   }, [about, key, val])
 
   return (
@@ -110,6 +120,7 @@ const Attest = () => {
         onChange={(e) => setAbout(e.target.value)}
         placeholder="Who's this attestation about?"
         value={about}
+        valid={isAboutValid}
       />
       <FormLabel>Attestation key</FormLabel>
       <Input 
@@ -118,6 +129,7 @@ const Attest = () => {
         // onChange={(e) => setKey(formatKey(e.target.value))}
         placeholder="Attestation key" 
         value={key}
+        valid={isKeyValid}
       />
       <FormLabel>Attestation value</FormLabel>
       <Input 
@@ -125,6 +137,7 @@ const Attest = () => {
         onChange={(e) => setVal(e.target.value)}
         placeholder="Attestation value" 
         value={val}
+        valid={isValValid}
       />
       <SubmitButton disabled={!write}>
         Make attestation
