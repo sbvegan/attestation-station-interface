@@ -104,7 +104,7 @@ const Attest = () => {
         write?.()
       }}
     >
-      <FormLabel>ETH address</FormLabel>
+      <FormLabel>Ethereum address</FormLabel>
       <Input 
         type="text" 
         onChange={(e) => setAbout(e.target.value)}

@@ -49,9 +49,9 @@ const SubmitButton = styled.button`
 const ReadAttestation = () => {
     return (
         <AttestForm>
-            <FormLabel>Creator's ETH address</FormLabel>
+            <FormLabel>Creator's Ethereum address</FormLabel>
             <Input type="text" placeholder="Who's this attestation about?"/>
-            <FormLabel>Subject's ETH address</FormLabel>
+            <FormLabel>Subject's Ethereum address</FormLabel>
             <Input type="text" placeholder="Who's this attestation about?"/>
             <FormLabel>Attestation key</FormLabel>
             <Input type="text" placeholder="Attestation key" />
