@@ -117,8 +117,8 @@ const Attest = () => {
       <FormLabel>Ethereum address</FormLabel>
       <Input 
         type="text" 
-        onChange={(e) => setAbout(e.target.value)}
         placeholder="Who's this attestation about?"
+        onChange={(e) => setAbout(e.target.value)}
         value={about}
         valid={isAboutValid}
       />
@@ -126,7 +126,6 @@ const Attest = () => {
       <Input 
         type="text" 
         onChange={(e) => setKey(e.target.value)}
-        // onChange={(e) => setKey(formatKey(e.target.value))}
         placeholder="Attestation key" 
         value={key}
         valid={isKeyValid}
@@ -134,8 +133,8 @@ const Attest = () => {
       <FormLabel>Attestation value</FormLabel>
       <Input 
         type="text" 
-        onChange={(e) => setVal(e.target.value)}
         placeholder="Attestation value" 
+        onChange={(e) => setVal(e.target.value)}
         value={val}
         valid={isValValid}
       />
