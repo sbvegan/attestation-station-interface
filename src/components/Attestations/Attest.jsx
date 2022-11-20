@@ -35,8 +35,8 @@ const Input = styled.input`
   padding: 9px 12px;
   width: 420px;
   ${({ valid }) => !valid && `
-  border-color: #ff0420;
-`}
+    border-color: #ff0420;
+  `}
 `
 
 const SubmitButton = styled.button`
