@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import styled from "styled-components";
 import { useContractRead } from "wagmi";
@@ -30,6 +30,9 @@ const Input = styled.input`
   outline-style: none;
   padding: 9px 12px;
   width: 420px;
+  ${({ valid }) => !valid && `
+    border-color: #ff0420;
+  `}
 `
 
 /**
@@ -49,6 +52,17 @@ const ReadAttestation = () => {
   const [key, setKey] = useState("")
   const [bytes32Key, setBytes32Key] = useState("")
 
+  const [isCreatorValid, setIsCreatorValid] = useState(false)
+  const [isAboutValid, setIsAboutValid] = useState(false)
+  const [isKeyValid, setIsKeyValid] = useState(false)
+
+  useEffect(() => {
+    setIsCreatorValid(ethers.utils.isAddress(creator))
+    setIsAboutValid(ethers.utils.isAddress(about))
+    // todo: make this more robust
+    setIsKeyValid(key !== "")
+  }, [creator, about, key])
+
   const { data, isError, isLoading } = useContractRead({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
@@ -65,6 +79,7 @@ const ReadAttestation = () => {
         placeholder="Who created this attestation?"
         onChange={(e) => setCreator(e.target.value)}
         value={creator}
+        valid={isCreatorValid}
       />
       <FormLabel>Subject's ETH address</FormLabel>
       <Input 
@@ -72,6 +87,7 @@ const ReadAttestation = () => {
         placeholder="Who's this attestation about?"
         onChange={(e) => setAbout(e.target.value)}
         value={about}
+        valid={isAboutValid}
       />
       <FormLabel>Attestation key</FormLabel>
       <Input 
@@ -82,6 +98,7 @@ const ReadAttestation = () => {
           setBytes32Key(ethers.utils.formatBytes32String(e.target.value))
         }}
         value={key}
+        valid={isKeyValid}
       />
       <p>{data}</p>
       <p>{data? ethers.utils.toUtf8String(data): ""}</p>
