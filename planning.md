@@ -8,9 +8,11 @@ The interface will enable non-developers to interact with the Attestation Statio
 
 The interface will allow users to connect their wallets to the web application.
 
-### Network Switch (done)
+### Network Switch
 
 The interface will allow users to switch between different blockchain networks.
+
+The interface will update the smart contract address based on the network that is selected.
 
 _Note: The interface will notify users if they are connected to an unsupported network._
 
