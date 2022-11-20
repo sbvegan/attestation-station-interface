@@ -83,7 +83,11 @@ const Attest = () => {
   const [isKeyValid, setIsKeyValid] = useState(false)
   const [isValValid, setIsValValid] = useState(false)
 
-  const { config } = usePrepareContractWrite({
+  const { 
+    config,
+    error: prepareError,
+    isError: isPrepareError,
+  } = usePrepareContractWrite({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
     functionName: "attest",
@@ -92,7 +96,7 @@ const Attest = () => {
     ],
     enabled: Boolean(about) && Boolean(key) && Boolean(val)
   })
-  const { write } = useContractWrite(config)
+  const { data, error, isError, write } = useContractWrite(config)
 
   useEffect(() => {
     const attest = {
@@ -106,6 +110,10 @@ const Attest = () => {
     setIsKeyValid(key !== "")
     setIsValValid(val !== "")
   }, [about, key, val])
+
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  })
 
   return (
     <AttestForm
@@ -138,9 +146,20 @@ const Attest = () => {
         value={val}
         valid={isValValid}
       />
-      <SubmitButton disabled={!write}>
+      <SubmitButton disabled={!write || isLoading}>
         Make attestation
       </SubmitButton>
+      {isSuccess && (
+        <div>
+          Successfully made attestation!
+          <div>
+            <a href={`https://goerli-optimism.etherscan.io/tx/${data?.hash}`}>Optimism Goerli - Etherscan</a>
+          </div>
+        </div>
+      )}
+      {(isPrepareError || isError) && (
+        <div>Error: {(prepareError || error)?.message}</div>
+      )}
     </AttestForm>
   )
 }
