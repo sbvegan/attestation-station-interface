@@ -4,17 +4,17 @@ The interface will enable non-developers to interact with the Attestation Statio
 
 ## Feature Set
 
-### Wallet Connection
+### Wallet Connection (done)
 
 The interface will allow users to connect their wallets to the web application.
 
-### Network Switch
+### Network Switch (done)
 
 The interface will allow users to switch between different blockchain networks.
 
 _Note: The interface will notify users if they are connected to an unsupported network._
 
-### Make Attestation
+### Make Attestation (done)
 
 The interface will allow users to make attestations. The following data will be required:
 
@@ -24,9 +24,30 @@ The interface will allow users to make attestations. The following data will be 
 
 _Note: the user's wallet will need to be connected to a supported network_
 
-### Read Attestation
+### Read Attestation (done)
 
 The interface will allow users to read attestations from the `AttestationStation` contract.
+
+### User Feedback
+
+The interface will provide helpful user feedback on `AttestationStation` contract interactions. This will include, but not limited to:
+
+- [ ] Input validation for addresses
+- [ ] Input validation for key
+- [ ] Input validation for value
+- [ ] Transaction broadcasted, etherscan link
+- [ ] Transaction confirmed, etherscan link
+- [ ] Key tooltip with more information
+- [ ] Value tooltip with more information
+
+### Key toggle
+
+The interface will provide a toggle for the key field, this will allow users to input:
+
+- plain text
+- hash value
+
+_Note: the key field is a bytes32 variable, so the convention is to hash the key with the keccak function to get a bytes32 hash that the smart contract accepts._
 
 ## Future Phase Items
 

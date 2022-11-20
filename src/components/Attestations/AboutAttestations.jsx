@@ -22,6 +22,7 @@ const Text = styled.p`
 
 `
 
+// TODO: provide more helpful information
 
 const AboutAttestations = () => {
     return (
