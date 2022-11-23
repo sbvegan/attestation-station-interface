@@ -1,6 +1,6 @@
-import styled from "styled-components";
-
-import AttestationForm from "./AttestationForm";
+import React from 'react'
+import styled from 'styled-components'
+import AttestationForm from './AttestationForm'
 
 const AttestationsFormContainer = styled.div`
   align-items: center;
@@ -9,14 +9,12 @@ const AttestationsFormContainer = styled.div`
   margin-top: 60px;
 `
 
-
 const Attestations = () => {
-
-    return(
+  return (
         <AttestationsFormContainer>
             <AttestationForm />
         </AttestationsFormContainer>
-    )
+  )
 }
 
-export default Attestations;
+export default Attestations

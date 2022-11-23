@@ -1,21 +1,22 @@
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
-import '@rainbow-me/rainbowkit/styles.css';
+import '@rainbow-me/rainbowkit/styles.css'
 import {
   getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
+  RainbowKitProvider
+} from '@rainbow-me/rainbowkit'
 
-import { 
+import {
   chain,
-  configureChains, 
+  configureChains,
   createClient,
-  WagmiConfig,
-} from "wagmi"
-import { publicProvider } from "wagmi/providers/public";
+  WagmiConfig
+} from 'wagmi'
+import { publicProvider } from 'wagmi/providers/public'
 
-import Attestations from "./components/Attestations";
-import Header from "./components/Header"
+import Attestations from './components/Attestations'
+import Header from './components/Header'
 
 const AppWrapper = styled.div`
   background-color: #f1f4f9;
@@ -41,7 +42,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 const { connectors } = getDefaultWallets({
   appName: 'Attestation Station Interface',
   chains
-});
+})
 
 const client = createClient({
   autoConnect: true,
@@ -50,7 +51,7 @@ const client = createClient({
   webSocketProvider
 })
 
-export default function App() {
+export default function App () {
   return (
     <AppWrapper>
       <WagmiConfig client={client}>
@@ -64,5 +65,5 @@ export default function App() {
           </RainbowKitProvider>
       </WagmiConfig>
     </AppWrapper>
-  );
+  )
 }

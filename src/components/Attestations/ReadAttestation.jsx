@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { ethers } from "ethers";
-import styled from "styled-components";
-import { useContractRead } from "wagmi";
-import { AttestationStationOptimismGoerliAddress } from "../../constants/addresses";
-import AttestationStationABI from "../../constants/abi.json"
+import React, { useState, useEffect } from 'react'
+import { ethers } from 'ethers'
+import styled from 'styled-components'
+import { useContractRead } from 'wagmi'
+import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
+import AttestationStationABI from '../../constants/abi.json'
 
 const AttestForm = styled.form`
   display: flex;
@@ -46,11 +46,10 @@ const Input = styled.input`
  */
 
 const ReadAttestation = () => {
-
-  const [creator, setCreator] = useState("")
-  const [about, setAbout] = useState("")
-  const [key, setKey] = useState("")
-  const [bytes32Key, setBytes32Key] = useState("")
+  const [creator, setCreator] = useState('')
+  const [about, setAbout] = useState('')
+  const [key, setKey] = useState('')
+  const [bytes32Key, setBytes32Key] = useState('')
 
   const [isCreatorValid, setIsCreatorValid] = useState(false)
   const [isAboutValid, setIsAboutValid] = useState(false)
@@ -60,39 +59,40 @@ const ReadAttestation = () => {
     setIsCreatorValid(ethers.utils.isAddress(creator))
     setIsAboutValid(ethers.utils.isAddress(about))
     // todo: make this more robust
-    setIsKeyValid(key !== "")
+    setIsKeyValid(key !== '')
   }, [creator, about, key])
 
-  const { data, isError, isLoading } = useContractRead({
+  // const { data, isError, isLoading } = useContractRead({
+  const { data } = useContractRead({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
-    functionName: "attestations",
+    functionName: 'attestations',
     args: [creator, about, bytes32Key],
     enabled: Boolean(creator) && Boolean(about) && Boolean(bytes32Key)
   })
 
   return (
     <AttestForm>
-      <FormLabel>Creator's ETH address</FormLabel>
-      <Input 
-        type="text" 
+      <FormLabel>Creator&apos;s ETH address</FormLabel>
+      <Input
+        type="text"
         placeholder="Who created this attestation?"
         onChange={(e) => setCreator(e.target.value)}
         value={creator}
         valid={isCreatorValid}
       />
-      <FormLabel>Subject's ETH address</FormLabel>
-      <Input 
-        type="text" 
+      <FormLabel>Subject&apos;s ETH address</FormLabel>
+      <Input
+        type="text"
         placeholder="Who's this attestation about?"
         onChange={(e) => setAbout(e.target.value)}
         value={about}
         valid={isAboutValid}
       />
       <FormLabel>Attestation key</FormLabel>
-      <Input 
-        type="text" 
-        placeholder="Attestation key" 
+      <Input
+        type="text"
+        placeholder="Attestation key"
         onChange={(e) => {
           setKey(e.target.value)
           setBytes32Key(ethers.utils.formatBytes32String(e.target.value))
@@ -100,12 +100,12 @@ const ReadAttestation = () => {
         value={key}
         valid={isKeyValid}
       />
-      {data ? 
-        <div>
+      {data
+        ? <div>
           <FormLabel>Value</FormLabel>
           <p>{data}</p>
           <FormLabel>String formatted value</FormLabel>
-          <p>{data? ethers.utils.toUtf8String(data): ""}</p>
+          <p>{data ? ethers.utils.toUtf8String(data) : ''}</p>
         </div>
         : <></>
       }
@@ -114,4 +114,4 @@ const ReadAttestation = () => {
   )
 }
 
-export default ReadAttestation;
+export default ReadAttestation

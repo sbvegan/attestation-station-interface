@@ -1,6 +1,6 @@
-import { useState } from "react";
-import styled from "styled-components";
-import AttestationFormContent from "./AttestationFormContent";
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import AttestationFormContent from './AttestationFormContent'
 
 const AttestationFormWrapper = styled.div`
   align-items: center;
@@ -32,27 +32,25 @@ const Link = styled.a`
   `}
 `
 
-
 const AttestationForm = () => {
+  const [active, setActive] = useState(0)
 
-    const [active, setActive] = useState(0)
-
-    return(
+  return (
         <AttestationFormWrapper>
           <LinkWrapper>
-            <Link 
+            <Link
               active={active === 0}
               onClick={() => setActive(0)}
             >
               Attest
             </Link>
-            <Link 
+            <Link
               active={active === 1}
               onClick={() => setActive(1)}
             >
               Read Attestation
             </Link>
-            <Link 
+            <Link
               active={active === 2}
               onClick={() => setActive(2)}
             >
@@ -61,7 +59,7 @@ const AttestationForm = () => {
           </LinkWrapper>
           <AttestationFormContent active={active} />
         </AttestationFormWrapper>
-    )
+  )
 }
 
-export default AttestationForm;
+export default AttestationForm

@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { ethers } from "ethers";
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { ethers } from 'ethers'
 import {
   usePrepareContractWrite,
   useContractWrite,
-  useWaitForTransaction,
+  useWaitForTransaction
 } from 'wagmi'
-import { AttestationStationOptimismGoerliAddress } from "../../constants/addresses";
-import AttestationStationABI from "../../constants/abi.json"
+import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
+import AttestationStationABI from '../../constants/abi.json'
 
 const AttestForm = styled.form`
   display: flex;
@@ -63,34 +63,34 @@ const SubmitButton = styled.button`
  *  - helper tooltips
  *  - error handling
  *  - user feedback
- *  - message success/failure 
+ *  - message success/failure
  *  - blockchain explorer link
  *  - handle optimism mainnet and testnet switching
  *  - use keccack256 for the key and go along with the attestation convention
  */
 
 const Attest = () => {
-  const [about, setAbout] = useState("")
-  const [key, setKey] = useState("")
-  const [val, setVal] = useState("")
+  const [about, setAbout] = useState('')
+  const [key, setKey] = useState('')
+  const [val, setVal] = useState('')
   const [attestation, setAttestation] = useState({
-    about: about,
-    key: key,
-    val: val
+    about,
+    key,
+    val
   })
 
   const [isAboutValid, setIsAboutValid] = useState(false)
   const [isKeyValid, setIsKeyValid] = useState(false)
   const [isValValid, setIsValValid] = useState(false)
 
-  const { 
+  const {
     config,
     error: prepareError,
-    isError: isPrepareError,
+    isError: isPrepareError
   } = usePrepareContractWrite({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
-    functionName: "attest",
+    functionName: 'attest',
     args: [
       [attestation]
     ],
@@ -100,19 +100,19 @@ const Attest = () => {
 
   useEffect(() => {
     const attest = {
-      about: about,
+      about,
       key: ethers.utils.formatBytes32String(key),
       val: ethers.utils.toUtf8Bytes(val)
     }
     setAttestation(attest)
     setIsAboutValid(ethers.utils.isAddress(about))
     // todo: make this more robust
-    setIsKeyValid(key !== "")
-    setIsValValid(val !== "")
+    setIsKeyValid(key !== '')
+    setIsValValid(val !== '')
   }, [about, key, val])
 
   const { isLoading, isSuccess } = useWaitForTransaction({
-    hash: data?.hash,
+    hash: data?.hash
   })
 
   return (
@@ -123,25 +123,25 @@ const Attest = () => {
       }}
     >
       <FormLabel>Ethereum address</FormLabel>
-      <Input 
-        type="text" 
+      <Input
+        type="text"
         placeholder="Who's this attestation about?"
         onChange={(e) => setAbout(e.target.value)}
         value={about}
         valid={isAboutValid}
       />
       <FormLabel>Attestation key</FormLabel>
-      <Input 
-        type="text" 
+      <Input
+        type="text"
         onChange={(e) => setKey(e.target.value)}
-        placeholder="Attestation key" 
+        placeholder="Attestation key"
         value={key}
         valid={isKeyValid}
       />
       <FormLabel>Attestation value</FormLabel>
-      <Input 
-        type="text" 
-        placeholder="Attestation value" 
+      <Input
+        type="text"
+        placeholder="Attestation value"
         onChange={(e) => setVal(e.target.value)}
         value={val}
         valid={isValValid}
@@ -164,4 +164,4 @@ const Attest = () => {
   )
 }
 
-export default Attest;
+export default Attest

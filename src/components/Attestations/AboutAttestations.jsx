@@ -1,4 +1,6 @@
-import styled from "styled-components";
+import React from 'react'
+
+import styled from 'styled-components'
 
 const AboutContainer = styled.div`
   display: flex;
@@ -25,18 +27,18 @@ const Text = styled.p`
 // TODO: provide more helpful information
 
 const AboutAttestations = () => {
-    return (
+  return (
         <AboutContainer>
-            <SubSection>What's this?</SubSection>
+            <SubSection>What&apos;s this?</SubSection>
             <Text>An open-source interface for the Attestation Station.</Text>
-            <SubSection>What's the Attestation Station?</SubSection>
+            <SubSection>What&apos;s the Attestation Station?</SubSection>
             <Text>The Attestation Station is a smart contract deployed on Optimism. It allows anyone to make arbitrary attestations about</Text>
             <SubSection>Why?</SubSection>
             <Text>To build out a reputation and identity layer on-chain.</Text>
             <SubSection>Learn more</SubSection>
             <Text>TODO: add links</Text>
         </AboutContainer>
-    )
+  )
 }
 
-export default AboutAttestations;
+export default AboutAttestations

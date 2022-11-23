@@ -1,8 +1,9 @@
-import styled from "styled-components";
-import optimismRed from "../../assets/svg/OPTIMISM-R.svg";
+import React from 'react'
 
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import styled from 'styled-components'
+import optimismRed from '../../assets/svg/OPTIMISM-R.svg'
 
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 const Nav = styled.nav`
   background-color: rgb(255, 255, 255);
@@ -16,12 +17,12 @@ const Nav = styled.nav`
 `
 
 const Header = () => {
-    return(
+  return (
         <Nav>
             <img src={optimismRed} alt="Optimism" />
             <ConnectButton />
         </Nav>
-    )
+  )
 }
 
-export default Header;
+export default Header
