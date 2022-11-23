@@ -100,8 +100,16 @@ const ReadAttestation = () => {
         value={key}
         valid={isKeyValid}
       />
-      <p>{data}</p>
-      <p>{data? ethers.utils.toUtf8String(data): ""}</p>
+      {data ? 
+        <div>
+          <FormLabel>Value</FormLabel>
+          <p>{data}</p>
+          <FormLabel>String formatted value</FormLabel>
+          <p>{data? ethers.utils.toUtf8String(data): ""}</p>
+        </div>
+        : <></>
+      }
+
     </AttestForm>
   )
 }
