@@ -49,13 +49,17 @@ const SubmitButton = styled.button`
   font-weight: 700;
   height: 60px;
   width: 100%;
-  margin-top: 16px;
+  margin: 16px 0;
   padding: 0 24px;
   transition: all 0.2s ease;
   &:hover {
     cursor: pointer;
     background-color: rgb(235, 0, 26);
   }
+`
+
+const Link = styled.a`
+  color: #f01a37;
 `
 
 /**
@@ -147,14 +151,19 @@ const Attest = () => {
         valid={isValValid}
       />
       <SubmitButton disabled={!write || isLoading}>
-        Make attestation
+        {isLoading ? 'Making attestion' : 'Make attestation'}
       </SubmitButton>
       {isSuccess && (
         <div>
-          Successfully made attestation!
-          <div>
-            <a href={`https://goerli-optimism.etherscan.io/tx/${data?.hash}`}>Optimism Goerli - Etherscan</a>
-          </div>
+          <FormLabel>
+            Successfully made attestation:&nbsp;
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://goerli-optimism.etherscan.io/tx/${data?.hash}`}>
+                etherscan transaction
+            </Link>
+          </FormLabel>
         </div>
       )}
       {(isPrepareError || isError) && (
