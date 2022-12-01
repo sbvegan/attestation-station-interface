@@ -34,11 +34,11 @@ The interface will allow users to read attestations from the `AttestationStation
 
 The interface will provide helpful user feedback on `AttestationStation` contract interactions. This will include, but not limited to:
 
-- [ ] Input validation for addresses
+- [x] Input validation for addresses
 - [ ] Input validation for key
 - [ ] Input validation for value
-- [ ] Transaction broadcasted, etherscan link
-- [ ] Transaction confirmed, etherscan link
+- [x] Transaction broadcasted, etherscan link
+- [x] Transaction confirmed, etherscan link
 - [ ] Key tooltip with more information
 - [ ] Value tooltip with more information
 
