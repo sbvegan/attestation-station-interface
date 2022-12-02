@@ -6,6 +6,7 @@ import {
   useContractWrite,
   useWaitForTransaction
 } from 'wagmi'
+import tooltip from '../../assets/svg/tooltip.svg'
 import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
@@ -62,6 +63,32 @@ const Link = styled.a`
   color: #f01a37;
 `
 
+const TooltipIcon = styled.img`
+  cursor: pointer;
+  height: 12px;
+`
+
+const TooltipBox = styled.div`
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  padding: 8px;
+  border-radius: 6px;
+  position: absolute;
+`
+
+const TooltipContainer = styled.span`
+  & ${TooltipIcon}:hover + ${TooltipBox} {
+    visibility: visible;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 230px;
+    padding: 8px 8px;
+    border-radius: 4px;
+}
+`
+
 /**
  * TODO:
  *  - helper tooltips
@@ -86,6 +113,8 @@ const Attest = () => {
   const [isAboutValid, setIsAboutValid] = useState(false)
   const [isKeyValid, setIsKeyValid] = useState(false)
   const [isValValid, setIsValValid] = useState(false)
+
+  const [hover, setHover] = useState(false)
 
   const {
     config,
@@ -115,6 +144,10 @@ const Attest = () => {
     setIsValValid(val !== '')
   }, [about, key, val])
 
+  useEffect(() => {
+    console.log(hover)
+  }, [hover])
+
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash
   })
@@ -126,7 +159,9 @@ const Attest = () => {
         write?.()
       }}
     >
-      <FormLabel>Ethereum address</FormLabel>
+      <FormLabel>
+        Ethereum address
+      </FormLabel>
       <Input
         type="text"
         placeholder="Who's this attestation about?"
@@ -134,7 +169,22 @@ const Attest = () => {
         value={about}
         valid={isAboutValid}
       />
-      <FormLabel>Attestation key</FormLabel>
+      <FormLabel>
+        Attestation key&nbsp;
+        <TooltipContainer
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
+          <TooltipIcon
+            src={tooltip}
+            alt="attestation key information tooltip icon"
+            hover={hover}
+          />
+          <TooltipBox>
+            todo: add information
+          </TooltipBox>
+        </TooltipContainer>
+      </FormLabel>
       <Input
         type="text"
         onChange={(e) => setKey(e.target.value)}
@@ -142,7 +192,14 @@ const Attest = () => {
         value={key}
         valid={isKeyValid}
       />
-      <FormLabel>Attestation value</FormLabel>
+      <FormLabel>
+        Attestation value&nbsp;
+        <TooltipIcon
+          src={tooltip}
+          alt="attestation value information tooltip icon"
+          hover={hover}
+        />
+      </FormLabel>
       <Input
         type="text"
         placeholder="Attestation value"
