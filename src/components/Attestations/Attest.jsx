@@ -95,9 +95,6 @@ const TooltipContainer = styled.span`
  *  - error handling
  *  - user feedback
  *  - message success/failure
- *  - blockchain explorer link
- *  - handle optimism mainnet and testnet switching
- *  - use keccack256 for the key and go along with the attestation convention
  */
 
 const Attest = () => {
@@ -132,21 +129,21 @@ const Attest = () => {
   const { data, error, isError, write } = useContractWrite(config)
 
   useEffect(() => {
-    const attest = {
-      about,
-      key: ethers.utils.formatBytes32String(key),
-      val: ethers.utils.toUtf8Bytes(val)
+    try {
+      const attest = {
+        about,
+        key: ethers.utils.formatBytes32String(key),
+        val: ethers.utils.toUtf8Bytes(val)
+      }
+      setAttestation(attest)
+    } catch (e) {
+      console.error(e)
     }
-    setAttestation(attest)
     setIsAboutValid(ethers.utils.isAddress(about))
     // todo: make this more robust
-    setIsKeyValid(key !== '')
+    setIsKeyValid(key !== '' && key.length < 32)
     setIsValValid(val !== '')
   }, [about, key, val])
-
-  useEffect(() => {
-    console.log(hover)
-  }, [hover])
 
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash
@@ -190,6 +187,7 @@ const Attest = () => {
         onChange={(e) => setKey(e.target.value)}
         placeholder="Attestation key"
         value={key}
+        maxLength="31" // convention for attestation station - bytes32 and the last byte is reserved
         valid={isKeyValid}
       />
       <FormLabel>
@@ -224,7 +222,11 @@ const Attest = () => {
         </div>
       )}
       {(isPrepareError || isError) && (
-        <div>Error: {(prepareError || error)?.message}</div>
+        <div>
+          <FormLabel>
+            Error: {(prepareError || error)?.message}
+          </FormLabel>
+        </div>
       )}
     </AttestForm>
   )

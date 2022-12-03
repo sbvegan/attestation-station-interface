@@ -39,10 +39,7 @@ const Input = styled.input`
  * TODO:
  *  - input validation
  *  - helper tooltips
- *  - error handling
  *  - user feedback
- *  - handle optimism mainnet and testnet switching
- *  - use keccack256 for the key and go along with the attestation convention
  */
 
 const ReadAttestation = () => {
@@ -62,8 +59,7 @@ const ReadAttestation = () => {
     setIsKeyValid(key !== '')
   }, [creator, about, key])
 
-  // const { data, isError, isLoading } = useContractRead({
-  const { data } = useContractRead({
+  const { data, error, isError } = useContractRead({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
     functionName: 'attestations',
@@ -73,7 +69,7 @@ const ReadAttestation = () => {
 
   return (
     <AttestForm>
-      <FormLabel>Creator&apos;s ETH address</FormLabel>
+      <FormLabel>Creator&apos;s Ethereum address</FormLabel>
       <Input
         type="text"
         placeholder="Who created this attestation?"
@@ -81,7 +77,7 @@ const ReadAttestation = () => {
         value={creator}
         valid={isCreatorValid}
       />
-      <FormLabel>Subject&apos;s ETH address</FormLabel>
+      <FormLabel>Subject&apos;s Ethereum address</FormLabel>
       <Input
         type="text"
         placeholder="Who's this attestation about?"
@@ -98,6 +94,7 @@ const ReadAttestation = () => {
           setBytes32Key(ethers.utils.formatBytes32String(e.target.value))
         }}
         value={key}
+        maxLength="31" // convention for attestation station - bytes32 and the last byte is reserved
         valid={isKeyValid}
       />
       {data
@@ -109,7 +106,13 @@ const ReadAttestation = () => {
         </div>
         : <></>
       }
-
+      {(isError) && (
+        <div>
+          <FormLabel>
+            Error: {(error)?.message}
+          </FormLabel>
+        </div>
+      )}
     </AttestForm>
   )
 }
