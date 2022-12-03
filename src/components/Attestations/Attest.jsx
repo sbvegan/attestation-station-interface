@@ -222,7 +222,11 @@ const Attest = () => {
         </div>
       )}
       {(isPrepareError || isError) && (
-        <div>Error: {(prepareError || error)?.message}</div>
+        <div>
+          <FormLabel>
+            Error: {(prepareError || error)?.message}
+          </FormLabel>
+        </div>
       )}
     </AttestForm>
   )

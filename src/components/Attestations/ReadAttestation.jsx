@@ -39,10 +39,7 @@ const Input = styled.input`
  * TODO:
  *  - input validation
  *  - helper tooltips
- *  - error handling
  *  - user feedback
- *  - handle optimism mainnet and testnet switching
- *  - use keccack256 for the key and go along with the attestation convention
  */
 
 const ReadAttestation = () => {
@@ -62,8 +59,7 @@ const ReadAttestation = () => {
     setIsKeyValid(key !== '')
   }, [creator, about, key])
 
-  // const { data, isError, isLoading } = useContractRead({
-  const { data } = useContractRead({
+  const { data, error, isError } = useContractRead({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
     functionName: 'attestations',
@@ -110,7 +106,13 @@ const ReadAttestation = () => {
         </div>
         : <></>
       }
-
+      {(isError) && (
+        <div>
+          <FormLabel>
+            Error: {(error)?.message}
+          </FormLabel>
+        </div>
+      )}
     </AttestForm>
   )
 }
