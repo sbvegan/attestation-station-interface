@@ -73,7 +73,7 @@ const ReadAttestation = () => {
 
   return (
     <AttestForm>
-      <FormLabel>Creator&apos;s ETH address</FormLabel>
+      <FormLabel>Creator&apos;s Ethereum address</FormLabel>
       <Input
         type="text"
         placeholder="Who created this attestation?"
@@ -81,7 +81,7 @@ const ReadAttestation = () => {
         value={creator}
         valid={isCreatorValid}
       />
-      <FormLabel>Subject&apos;s ETH address</FormLabel>
+      <FormLabel>Subject&apos;s Ethereum address</FormLabel>
       <Input
         type="text"
         placeholder="Who's this attestation about?"
@@ -98,6 +98,7 @@ const ReadAttestation = () => {
           setBytes32Key(ethers.utils.formatBytes32String(e.target.value))
         }}
         value={key}
+        maxLength="31" // convention for attestation station - bytes32 and the last byte is reserved
         valid={isKeyValid}
       />
       {data
