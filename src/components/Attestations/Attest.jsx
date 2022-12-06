@@ -83,7 +83,7 @@ const TooltipContainer = styled.span`
     visibility: visible;
     color: #fff;
     background-color: rgba(0, 0, 0, 0.8);
-    width: 230px;
+    width: 404px;
     padding: 8px 8px;
     border-radius: 4px;
 }
@@ -111,7 +111,8 @@ const Attest = () => {
   const [isKeyValid, setIsKeyValid] = useState(false)
   const [isValValid, setIsValValid] = useState(false)
 
-  const [hover, setHover] = useState(false)
+  const [keyHover, setKeyHover] = useState(false)
+  const [valueHover, setValueHover] = useState(false)
 
   const {
     config,
@@ -169,16 +170,31 @@ const Attest = () => {
       <FormLabel>
         Attestation key&nbsp;
         <TooltipContainer
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
+          onMouseEnter={() => setKeyHover(true)}
+          onMouseLeave={() => setKeyHover(false)}
         >
           <TooltipIcon
             src={tooltip}
             alt="attestation key information tooltip icon"
-            hover={hover}
+            hover={keyHover}
           />
           <TooltipBox>
-            todo: add information
+            <ul>
+              <li>
+                An easy way to to describe what the attestation is about.
+              </li>
+              <li>
+                It is recommended that the value data type is appended (bool, string, address, etc).
+              </li>
+              <li>
+                This is limited to 31 characters. The smart contract definition is a bytes32 variable
+                and the last byte is reserved for more complicated keys. See the developer tutorial
+                for more information.
+              </li>
+              <li>
+                Example: sbvegan.interface.used:bool
+              </li>
+            </ul>
           </TooltipBox>
         </TooltipContainer>
       </FormLabel>
@@ -192,11 +208,26 @@ const Attest = () => {
       />
       <FormLabel>
         Attestation value&nbsp;
-        <TooltipIcon
-          src={tooltip}
-          alt="attestation value information tooltip icon"
-          hover={hover}
-        />
+        <TooltipContainer
+          onMouseEnter={() => setValueHover(true)}
+          onMouseLeave={() => setValueHover(false)}
+        >
+          <TooltipIcon
+            src={tooltip}
+            alt="attestation value information tooltip icon"
+            hover={valueHover}
+          />
+          <TooltipBox>
+            <ul>
+              <li>
+                The value is associated with the key.
+              </li>
+              <li>
+                Example: true
+              </li>
+            </ul>
+          </TooltipBox>
+        </TooltipContainer>
       </FormLabel>
       <Input
         type="text"
