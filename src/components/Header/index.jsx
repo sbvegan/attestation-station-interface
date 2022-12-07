@@ -1,13 +1,12 @@
 import React from 'react'
 
 import styled from 'styled-components'
-import optimismRed from '../../assets/svg/OPTIMISM-R.svg'
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 const Nav = styled.nav`
   background-color: rgb(255, 255, 255);
-  height: 72px;
+  height: 69px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -16,10 +15,22 @@ const Nav = styled.nav`
   padding: 0px 24px;
 `
 
+const Title = styled.h1`
+  font-family: Rubik;
+  font-style: italic;
+  font-weight: 700;
+  color: rgb(255, 4, 32);
+  letter-spacing: .1rem;
+`
+const TitleAccent = styled.span`
+  color: black;
+  font-weight: 400;
+`
+
 const Header = () => {
   return (
         <Nav>
-            <img src={optimismRed} alt="Optimism" />
+            <Title>ATTESTATION STATION <TitleAccent>INTERFACE</TitleAccent></Title>
             <ConnectButton />
         </Nav>
   )

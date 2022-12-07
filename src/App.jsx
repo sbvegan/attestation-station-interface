@@ -19,11 +19,11 @@ import Attestations from './components/Attestations'
 import Header from './components/Header'
 
 const AppWrapper = styled.div`
-  background-color: #f1f4f9;
+  background-color: #fff;
 `
 
 const HeaderWrapper = styled.div`
-  height: 72px;
+  height: 69px;
   width: 100%;
   box-shadow: rgba(20, 23, 26, 0.06) 0px 6px 8px -6px, rgba(20, 23, 26, 0.04) 0px 8px 16px -6px;
 `
