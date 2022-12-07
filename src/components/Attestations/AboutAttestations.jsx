@@ -27,40 +27,41 @@ const Text = styled.p`
 const Link = styled.a`
   color: #f01a37;
 `
-
-// TODO: provide more helpful information
+const Bold = styled.span`
+  font-weight: bold;
+`
 
 const AboutAttestations = () => {
   return (
     <AboutContainer>
-        <SubSection>What&apos;s this?</SubSection>
+        <SubSection>What&apos;s the AttestationStation?</SubSection>
         <Text>
-          An open-source interface for the Attestation Station. If you&apos;d like to make a contribution or report an issue; please head over to the&nbsp;
+          The AttestationStation is an <Bold>attestation smart contract </Bold>
+          deployed on Optimism. It enables anyone to make arbitrary attestations
+          about other addresses.
+        </Text>
+
+        <SubSection>What&apos;s the AttestationStation Interface?</SubSection>
+        <Text>
+          A <Bold>no-code open source solution to start making your own attestations </Bold>
+          from your favorite soyboy (: If you&apos;d like to make a contribution or
+          report an issue; please head over to the&nbsp;
           <Link
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/sbvegan/attestation-station-interface"
           >
             Github repository
-          </Link>
+          </Link>.
         </Text>
 
-        <SubSection>What&apos;s the Attestation Station?</SubSection>
+        <SubSection>Okay, but why?</SubSection>
         <Text>
-          The Attestation Station is a smart contract deployed on Optimism. It allows anyone to make arbitrary attestations about Ethereum addresses.
+          Ultimately the goal for the AttestationStation is <Bold>to serve as an accessible data
+          source for builders creating reputation related apps</Bold>. It can be used for a wide
+          variety of applications including voting, reputations, reviews, and more.
         </Text>
 
-        <SubSection>Why?</SubSection>
-        <Text>
-          Attestations can be used for a wide variety of applications including voting, reputations scores, reviews, and more. As an example, attestations written to the AttestationStation form the base layer of reputation for the&nbsp;
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://community.optimism.io/docs/governance/citizens-house/"
-          >
-            Optimism Citizen House
-          </Link>
-        </Text>
         <SubSection>Learn more</SubSection>
         <Text>
           <Link

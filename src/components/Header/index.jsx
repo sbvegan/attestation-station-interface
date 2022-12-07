@@ -30,7 +30,7 @@ const TitleAccent = styled.span`
 const Header = () => {
   return (
         <Nav>
-            <Title>ATTESTATION STATION <TitleAccent>INTERFACE</TitleAccent></Title>
+            <Title>ATTESTATIONSTATION <TitleAccent>INTERFACE</TitleAccent></Title>
             <ConnectButton />
         </Nav>
   )
