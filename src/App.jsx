@@ -33,9 +33,10 @@ const BodyWrapper = styled.div`
   width: 100%;
 `
 
-// todo: add additional providers to avoid rate limiting
+// todo: add mainnet when the contracts are deployed
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.optimism, chain.optimismGoerli],
+  // [chain.optimismGoerli],
   [publicProvider()]
 )
 

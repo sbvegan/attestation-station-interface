@@ -35,21 +35,12 @@ The interface will allow users to read attestations from the `AttestationStation
 The interface will provide helpful user feedback on `AttestationStation` contract interactions. This will include, but not limited to:
 
 - [x] Input validation for addresses
-- [ ] Input validation for key
-- [ ] Input validation for value
+- [x] Input validation for key
+- [x] Input validation for value
 - [x] Transaction broadcasted, etherscan link
 - [x] Transaction confirmed, etherscan link
-- [ ] Key tooltip with more information
-- [ ] Value tooltip with more information
-
-### Key toggle
-
-The interface will provide a toggle for the key field, this will allow users to input:
-
-- plain text
-- hash value
-
-_Note: the key field is a bytes32 variable, so the convention is to hash the key with the keccak function to get a bytes32 hash that the smart contract accepts._
+- [x] Key tooltip with more information
+- [x] Value tooltip with more information
 
 ## Future Phase Items
 
