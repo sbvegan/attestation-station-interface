@@ -35,8 +35,8 @@ const BodyWrapper = styled.div`
 
 // todo: add mainnet when the contracts are deployed
 const { chains, provider, webSocketProvider } = configureChains(
-  // [chain.optimism, chain.optimismGoerli],
-  [chain.optimismGoerli],
+  [chain.optimism, chain.optimismGoerli],
+  // [chain.optimismGoerli],
   [publicProvider()]
 )
 
