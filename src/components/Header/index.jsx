@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 
 import styled from 'styled-components'
@@ -41,15 +42,6 @@ const TitleAccent = styled.span`
   font-weight: 400;
 `
 
-const Tab = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  isolation: isolate;
-`
-
 const Link = styled.a`
   cursor: pointer;
   font-family: 'Rubik';
@@ -66,7 +58,7 @@ const Link = styled.a`
   `}
 `
 
-const Header = () => {
+const Header = (props) => {
   return (
     <Nav>
       <Left>
@@ -74,19 +66,23 @@ const Header = () => {
       </Left>
 
       <Right>
-        <Tab>
-          <Link active>
-            New attesation
-          </Link>
-        </Tab>
-        <Link>
+        <Link
+          active={props.activeContent === 0}
+          onClick={() => props.setActiveContent(0)}
+        >
+          New attesation
+        </Link>
+        <Link
+          active={props.activeContent === 1}
+          onClick={() => props.setActiveContent(1)}
+        >
           Read attestation
         </Link>
-        <Link>
+        <Link
+          active={props.activeContent === 2}
+          onClick={() => props.setActiveContent(2)}
+        >
           About
-        </Link>
-        <Link>
-          My attestations
         </Link>
         <ConnectButton
           accountStatus="avatar"

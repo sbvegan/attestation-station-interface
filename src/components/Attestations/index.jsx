@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styled from 'styled-components'
 import AttestationForm from './AttestationForm'
@@ -9,10 +10,12 @@ const AttestationsFormContainer = styled.div`
   margin-top: 60px;
 `
 
-const Attestations = () => {
+const Attestations = (props) => {
   return (
         <AttestationsFormContainer>
-            <AttestationForm />
+            <AttestationForm
+              activeContent={props.activeContent}
+            />
         </AttestationsFormContainer>
   )
 }

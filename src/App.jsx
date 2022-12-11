@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import '@rainbow-me/rainbowkit/styles.css'
@@ -47,13 +47,21 @@ const client = createClient({
 })
 
 export default function App () {
+  const [activeContent, setActiveContent] = useState(0)
+
   return (
     <AppWrapper>
       <WagmiConfig client={client}>
         <RainbowKitProvider chains={chains}>
-          <Header />
+          <Header
+            activeContent={activeContent}
+            setActiveContent={setActiveContent}
+          />
           <BodyWrapper>
-            <Attestations />
+            <Attestations
+              activeContent={activeContent}
+              setActiveContent={setActiveContent}
+            />
           </BodyWrapper>
           </RainbowKitProvider>
       </WagmiConfig>
