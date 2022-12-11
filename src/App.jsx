@@ -19,7 +19,7 @@ import Attestations from './components/Attestations'
 import Header from './components/Header'
 
 const AppWrapper = styled.div`
-  background-color: #fff;
+  background-color: #F1F4F9;
 `
 
 const BodyWrapper = styled.div`

@@ -6,13 +6,11 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 const Nav = styled.nav`
   background: #FFFFFF;
+  box-shadow: 0px 6px 8px -6px rgba(20, 23, 26, 0.06), 0px 8px 16px -6px rgba(20, 23, 26, 0.04);
   height: 72px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // flex-wrap: nowrap;
-  // align-items: center;
-  // padding: 0px 24px;
 `
 
 const Left = styled.div`
@@ -28,7 +26,7 @@ const Right = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding: 0px 32px 0px 0px;
-  gap: 52px;
+  gap: 32px;
 `
 
 const Title = styled.h1`
@@ -43,20 +41,60 @@ const TitleAccent = styled.span`
   font-weight: 400;
 `
 
+const Tab = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  isolation: isolate;
+`
+
+const Link = styled.a`
+  cursor: pointer;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #68778D;
+
+  ${({ active }) => active && `
+    color: #202327;
+    border-bottom: 3px solid #FF0420;
+    border-radius: 100px 100px 0px 0px;
+  `}
+`
+
 const Header = () => {
   return (
-        <Nav>
-            <Left>
-              <Title>ATTESTATIONSTATION <TitleAccent>INTERFACE</TitleAccent></Title>
-            </Left>
-            <Right>
-              <ConnectButton
-                accountStatus="avatar"
-                chainStatus="icon"
-                showBalance={false}
-              />
-            </Right>
-        </Nav>
+    <Nav>
+      <Left>
+        <Title>ATTESTATIONSTATION <TitleAccent>INTERFACE</TitleAccent></Title>
+      </Left>
+
+      <Right>
+        <Tab>
+          <Link active>
+            New attesation
+          </Link>
+        </Tab>
+        <Link>
+          Read attestation
+        </Link>
+        <Link>
+          About
+        </Link>
+        <Link>
+          My attestations
+        </Link>
+        <ConnectButton
+          accountStatus="avatar"
+          chainStatus="icon"
+          showBalance={false}
+        />
+      </Right>
+    </Nav>
   )
 }
 
