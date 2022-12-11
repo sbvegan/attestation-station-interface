@@ -15,7 +15,6 @@ const AttestationFormWrapper = styled.div`
 `
 
 const AttestationForm = (props) => {
-  console.log(props.activeContent)
   return (
         <AttestationFormWrapper>
           <AttestationFormContent active={props.activeContent} />
