@@ -22,12 +22,6 @@ const AppWrapper = styled.div`
   background-color: #fff;
 `
 
-const HeaderWrapper = styled.div`
-  height: 69px;
-  width: 100%;
-  box-shadow: rgba(20, 23, 26, 0.06) 0px 6px 8px -6px, rgba(20, 23, 26, 0.04) 0px 8px 16px -6px;
-`
-
 const BodyWrapper = styled.div`
   height: calc(100vh - 72px);
   width: 100%;
@@ -35,8 +29,8 @@ const BodyWrapper = styled.div`
 
 // todo: add mainnet when the contracts are deployed
 const { chains, provider, webSocketProvider } = configureChains(
-  // [chain.optimism, chain.optimismGoerli],
-  [chain.optimismGoerli],
+  [chain.optimism, chain.optimismGoerli],
+  // [chain.optimismGoerli],
   [publicProvider()]
 )
 
@@ -57,9 +51,7 @@ export default function App () {
     <AppWrapper>
       <WagmiConfig client={client}>
         <RainbowKitProvider chains={chains}>
-          <HeaderWrapper>
-            <Header />
-          </HeaderWrapper>
+          <Header />
           <BodyWrapper>
             <Attestations />
           </BodyWrapper>
