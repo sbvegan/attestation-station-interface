@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import '@rainbow-me/rainbowkit/styles.css'
@@ -19,13 +19,7 @@ import Attestations from './components/Attestations'
 import Header from './components/Header'
 
 const AppWrapper = styled.div`
-  background-color: #fff;
-`
-
-const HeaderWrapper = styled.div`
-  height: 69px;
-  width: 100%;
-  box-shadow: rgba(20, 23, 26, 0.06) 0px 6px 8px -6px, rgba(20, 23, 26, 0.04) 0px 8px 16px -6px;
+  background-color: #F1F4F9;
 `
 
 const BodyWrapper = styled.div`
@@ -35,8 +29,8 @@ const BodyWrapper = styled.div`
 
 // todo: add mainnet when the contracts are deployed
 const { chains, provider, webSocketProvider } = configureChains(
-  // [chain.optimism, chain.optimismGoerli],
-  [chain.optimismGoerli],
+  [chain.optimism, chain.optimismGoerli],
+  // [chain.optimismGoerli],
   [publicProvider()]
 )
 
@@ -53,15 +47,21 @@ const client = createClient({
 })
 
 export default function App () {
+  const [activeContent, setActiveContent] = useState(0)
+
   return (
     <AppWrapper>
       <WagmiConfig client={client}>
         <RainbowKitProvider chains={chains}>
-          <HeaderWrapper>
-            <Header />
-          </HeaderWrapper>
+          <Header
+            activeContent={activeContent}
+            setActiveContent={setActiveContent}
+          />
           <BodyWrapper>
-            <Attestations />
+            <Attestations
+              activeContent={activeContent}
+              setActiveContent={setActiveContent}
+            />
           </BodyWrapper>
           </RainbowKitProvider>
       </WagmiConfig>
