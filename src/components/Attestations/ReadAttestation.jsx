@@ -5,6 +5,20 @@ import { useContractRead } from 'wagmi'
 import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
+const Title = styled.h1`
+  /* Text/Bold 24pt · 1.5rem */
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+
+  /* identical to box height, or 133% */
+
+  /* 🌤️ $neutral/900 (Text) */
+  color: #202327;
+`
+
 const AttestForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -35,12 +49,18 @@ const Input = styled.input`
   `}
 `
 
-/**
- * TODO:
- *  - input validation
- *  - helper tooltips
- *  - user feedback
- */
+const Textarea = styled.textarea`
+  align-items: center;
+  border: 1px solid #cbd5e0;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 8px 0;
+  outline-style: none;
+  padding: 9px 12px;
+  width: 420px;
+  resize:none;
+`
 
 const ReadAttestation = () => {
   const [creator, setCreator] = useState('')
@@ -52,13 +72,6 @@ const ReadAttestation = () => {
   const [isAboutValid, setIsAboutValid] = useState(false)
   const [isKeyValid, setIsKeyValid] = useState(false)
 
-  useEffect(() => {
-    setIsCreatorValid(ethers.utils.isAddress(creator))
-    setIsAboutValid(ethers.utils.isAddress(about))
-    // todo: make this more robust
-    setIsKeyValid(key !== '')
-  }, [creator, about, key])
-
   const { data, error, isError } = useContractRead({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
@@ -67,8 +80,20 @@ const ReadAttestation = () => {
     enabled: Boolean(creator) && Boolean(about) && Boolean(bytes32Key)
   })
 
+  useEffect(() => {
+    setIsCreatorValid(ethers.utils.isAddress(creator))
+    setIsAboutValid(ethers.utils.isAddress(about))
+    setIsKeyValid(key !== '')
+    if (isError) {
+      console.error(error)
+      console.error(error.value)
+      console.error(error.code)
+    }
+  }, [creator, about, key, isError, error])
+
   return (
     <AttestForm>
+      <Title>Read attestation</Title>
       <FormLabel>Creator&apos;s Ethereum address</FormLabel>
       <Input
         type="text"
@@ -90,20 +115,25 @@ const ReadAttestation = () => {
         type="text"
         placeholder="Attestation key"
         onChange={(e) => {
-          setKey(e.target.value)
-          setBytes32Key(ethers.utils.formatBytes32String(e.target.value))
+          const key = e.target.value
+          if (key.length > 31) {
+            setKey(key)
+            setBytes32Key(key)
+          } else {
+            setKey(key)
+            setBytes32Key(ethers.utils.formatBytes32String(key))
+          }
         }}
         value={key}
-        maxLength="31" // convention for attestation station - bytes32 and the last byte is reserved
         valid={isKeyValid}
       />
       {data
-        ? <div>
+        ? <>
           <FormLabel>Value</FormLabel>
-          <p>{data}</p>
+          <Textarea>{data}</Textarea>
           <FormLabel>String formatted value</FormLabel>
-          <p>{data ? ethers.utils.toUtf8String(data) : ''}</p>
-        </div>
+          <Textarea>{data ? ethers.utils.toUtf8String(data) : ''}</Textarea>
+        </>
         : <></>
       }
       {(isError) && (
