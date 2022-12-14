@@ -5,19 +5,7 @@ import { useContractRead } from 'wagmi'
 import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
-const Title = styled.h1`
-  /* Text/Bold 24pt · 1.5rem */
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
-
-  /* identical to box height, or 133% */
-
-  /* 🌤️ $neutral/900 (Text) */
-  color: #202327;
-`
+import { H2 } from '../StyledTypography'
 
 const AttestForm = styled.form`
   display: flex;
@@ -93,7 +81,7 @@ const ReadAttestation = () => {
 
   return (
     <AttestForm>
-      <Title>Read attestation</Title>
+      <H2>Read attestation</H2>
       <FormLabel>Creator&apos;s Ethereum address</FormLabel>
       <Input
         type="text"

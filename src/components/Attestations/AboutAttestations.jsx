@@ -2,19 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-const Title = styled.h1`
-  /* Text/Bold 24pt · 1.5rem */
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
-
-  /* identical to box height, or 133% */
-
-  /* 🌤️ $neutral/900 (Text) */
-  color: #202327;
-`
+import { H2, Body16 } from '../StyledTypography'
 
 const AboutContainer = styled.div`
   display: flex;
@@ -34,10 +22,6 @@ const SubSection = styled.p`
   margin: 0;
 `
 
-const Text = styled.p`
-
-`
-
 const Link = styled.a`
   color: #f01a37;
 `
@@ -48,16 +32,16 @@ const Bold = styled.span`
 const AboutAttestations = () => {
   return (
     <AboutContainer>
-      <Title>About</Title>
+      <H2>About</H2>
       <SubSection>What&apos;s the AttestationStation?</SubSection>
-      <Text>
+      <Body16>
         The AttestationStation is an <Bold>attestation smart contract </Bold>
         deployed on Optimism. It enables anyone to make arbitrary attestations
         about other addresses.
-      </Text>
+      </Body16>
 
       <SubSection>What&apos;s the AttestationStation Interface?</SubSection>
-      <Text>
+      <Body16>
         A <Bold>no-code open source solution to start making your own attestations </Bold>
         from your favorite soyboy (: If you&apos;d like to make a contribution or
         report an issue; please head over to the&nbsp;
@@ -68,17 +52,17 @@ const AboutAttestations = () => {
         >
           Github repository
         </Link>.
-      </Text>
+      </Body16>
 
       <SubSection>Okay, but why?</SubSection>
-      <Text>
+      <Body16>
         Ultimately the goal for the AttestationStation is <Bold>to serve as an accessible data
         source for builders creating reputation related apps</Bold>. It can be used for a wide
         variety of applications including voting, reputations, reviews, and more.
-      </Text>
+      </Body16>
 
       <SubSection>Learn more</SubSection>
-      <Text>
+      <Body16>
         <Link
           target="_blank"
           rel="noopener noreferrer"
@@ -86,7 +70,7 @@ const AboutAttestations = () => {
         >
             Official Optimism Documentation
         </Link>
-      </Text>
+      </Body16>
     </AboutContainer>
   )
 }
