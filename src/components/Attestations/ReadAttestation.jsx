@@ -35,13 +35,6 @@ const Input = styled.input`
   `}
 `
 
-/**
- * TODO:
- *  - input validation
- *  - helper tooltips
- *  - user feedback
- */
-
 const ReadAttestation = () => {
   const [creator, setCreator] = useState('')
   const [about, setAbout] = useState('')
@@ -52,13 +45,6 @@ const ReadAttestation = () => {
   const [isAboutValid, setIsAboutValid] = useState(false)
   const [isKeyValid, setIsKeyValid] = useState(false)
 
-  useEffect(() => {
-    setIsCreatorValid(ethers.utils.isAddress(creator))
-    setIsAboutValid(ethers.utils.isAddress(about))
-    // todo: make this more robust
-    setIsKeyValid(key !== '')
-  }, [creator, about, key])
-
   const { data, error, isError } = useContractRead({
     address: AttestationStationOptimismGoerliAddress,
     abi: AttestationStationABI,
@@ -66,6 +52,17 @@ const ReadAttestation = () => {
     args: [creator, about, bytes32Key],
     enabled: Boolean(creator) && Boolean(about) && Boolean(bytes32Key)
   })
+
+  useEffect(() => {
+    setIsCreatorValid(ethers.utils.isAddress(creator))
+    setIsAboutValid(ethers.utils.isAddress(about))
+    setIsKeyValid(key !== '')
+    if (isError) {
+      console.error(error)
+      console.error(error.value)
+      console.error(error.code)
+    }
+  }, [creator, about, key, isError, error])
 
   return (
     <AttestForm>
@@ -90,11 +87,16 @@ const ReadAttestation = () => {
         type="text"
         placeholder="Attestation key"
         onChange={(e) => {
-          setKey(e.target.value)
-          setBytes32Key(ethers.utils.formatBytes32String(e.target.value))
+          const key = e.target.value
+          if (key.length > 31) {
+            setKey(key)
+            setBytes32Key(key)
+          } else {
+            setKey(key)
+            setBytes32Key(ethers.utils.formatBytes32String(key))
+          }
         }}
         value={key}
-        maxLength="31" // convention for attestation station - bytes32 and the last byte is reserved
         valid={isKeyValid}
       />
       {data

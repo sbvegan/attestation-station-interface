@@ -40,6 +40,19 @@ const Input = styled.input`
   `}
 `
 
+const HashedKey = styled.textarea`
+  align-items: center;
+  border: 1px solid #cbd5e0;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 8px 0;
+  outline-style: none;
+  padding: 9px 12px;
+  width: 420px;
+  resize:none;
+`
+
 const SubmitButton = styled.button`
   background-color: #ff0420;
   border: none;
@@ -89,17 +102,10 @@ const TooltipContainer = styled.span`
 }
 `
 
-/**
- * TODO:
- *  - helper tooltips
- *  - error handling
- *  - user feedback
- *  - message success/failure
- */
-
 const Attest = () => {
   const [about, setAbout] = useState('')
   const [key, setKey] = useState('')
+  const [hashedKey, setHashedKey] = useState('')
   const [val, setVal] = useState('')
   const [attestation, setAttestation] = useState({
     about,
@@ -112,6 +118,7 @@ const Attest = () => {
   const [isValValid, setIsValValid] = useState(false)
 
   const [keyHover, setKeyHover] = useState(false)
+  const [hashedKeyHover, setHashedKeyHover] = useState(false)
   const [valueHover, setValueHover] = useState(false)
 
   const {
@@ -131,10 +138,19 @@ const Attest = () => {
 
   useEffect(() => {
     try {
-      const attest = {
-        about,
-        key: ethers.utils.formatBytes32String(key),
-        val: ethers.utils.toUtf8Bytes(val)
+      let attest
+      if (key.length > 31) {
+        attest = {
+          about,
+          key: hashedKey,
+          val: ethers.utils.toUtf8Bytes(val)
+        }
+      } else {
+        attest = {
+          about,
+          key: ethers.utils.formatBytes32String(key),
+          val: ethers.utils.toUtf8Bytes(val)
+        }
       }
       setAttestation(attest)
     } catch (e) {
@@ -142,7 +158,7 @@ const Attest = () => {
     }
     setIsAboutValid(ethers.utils.isAddress(about))
     // todo: make this more robust
-    setIsKeyValid(key !== '' && key.length < 32)
+    setIsKeyValid(key !== '')
     setIsValValid(val !== '')
   }, [about, key, val])
 
@@ -181,15 +197,7 @@ const Attest = () => {
           <TooltipBox>
             <ul>
               <li>
-                An easy way to to describe what the attestation is about.
-              </li>
-              <li>
-                It is recommended that the value data type is appended (bool, string, address, etc).
-              </li>
-              <li>
-                This is limited to 31 characters. The smart contract definition is a bytes32 variable
-                and the last byte is reserved for more complicated keys. See the developer tutorial
-                for more information.
+                The key describes what the attestation is about.
               </li>
               <li>
                 Example: sbvegan.interface.used:bool
@@ -200,12 +208,59 @@ const Attest = () => {
       </FormLabel>
       <Input
         type="text"
-        onChange={(e) => setKey(e.target.value)}
+        onChange={(e) => {
+          const key = e.target.value
+          if (key.length > 31) {
+            setKey(key)
+            const bytesLikeKey = ethers.utils.toUtf8Bytes(key)
+            const keccak256HashedKey = ethers.utils.keccak256(bytesLikeKey)
+            setHashedKey(keccak256HashedKey)
+          } else {
+            setKey(key)
+            setHashedKey('')
+          }
+        }}
         placeholder="Attestation key"
         value={key}
-        maxLength="31" // convention for attestation station - bytes32 and the last byte is reserved
         valid={isKeyValid}
       />
+      {key.length > 31
+        ? <>
+            <FormLabel>
+              Hashed attestation key&nbsp;
+              <TooltipContainer
+                onMouseEnter={() => setHashedKeyHover(true)}
+                onMouseLeave={() => setHashedKeyHover(false)}
+              >
+                <TooltipIcon
+                  src={tooltip}
+                  alt="attestation key information tooltip icon"
+                  hover={hashedKeyHover}
+                />
+                <TooltipBox>
+                  <ul>
+                    <li>
+                      The key in the smart contract is limited to 32 bytes.
+                    </li>
+                    <li>
+                      When a key is 32 characters or longer, it is hashed with
+                      keccack256 to fit in the 32 bytes, and this is the result.
+                    </li>
+                    <li>
+                      This will be the key recorded and used for the AttestationStation.
+                    </li>
+                  </ul>
+                </TooltipBox>
+              </TooltipContainer>
+            </FormLabel>
+            <HashedKey
+              type="text"
+              rows={2}
+              value={hashedKey}
+              />
+          </>
+        : <span></span>
+      }
       <FormLabel>
         Attestation value&nbsp;
         <TooltipContainer
@@ -220,7 +275,7 @@ const Attest = () => {
           <TooltipBox>
             <ul>
               <li>
-                The value is associated with the key.
+                The value that is associated with the key.
               </li>
               <li>
                 Example: true
