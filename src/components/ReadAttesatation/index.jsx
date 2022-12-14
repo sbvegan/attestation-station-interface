@@ -5,7 +5,7 @@ import { useContractRead } from 'wagmi'
 import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
-import { H2 } from '../StyledTypography'
+import { H2, Body14Bold } from '../StyledTypography'
 
 const AttestForm = styled.form`
   display: flex;
@@ -14,12 +14,8 @@ const AttestForm = styled.form`
   text-align: left;
 `
 
-const FormLabel = styled.label`
-  box-sizing: border-box;
-  color: rgb(32,35,39);
-  font-family: Open Sans, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+const FormLabel = styled(Body14Bold)`
+  margin: 0
 `
 
 const Input = styled.input`
