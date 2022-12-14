@@ -104,7 +104,7 @@ const TooltipContainer = styled.span`
 }
 `
 
-const Attest = () => {
+const NewAttestation = () => {
   const [about, setAbout] = useState('')
   const [key, setKey] = useState('')
   const [hashedKey, setHashedKey] = useState('')
@@ -323,4 +323,4 @@ const Attest = () => {
   )
 }
 
-export default Attest
+export default NewAttestation
