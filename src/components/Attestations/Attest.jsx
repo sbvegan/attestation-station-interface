@@ -10,6 +10,20 @@ import tooltip from '../../assets/svg/tooltip.svg'
 import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
+const Title = styled.h1`
+  /* Text/Bold 24pt · 1.5rem */
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+
+  /* identical to box height, or 133% */
+
+  /* 🌤️ $neutral/900 (Text) */
+  color: #202327;
+`
+
 const AttestForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -167,154 +181,157 @@ const Attest = () => {
   })
 
   return (
-    <AttestForm
-      onSubmit={(e) => {
-        e.preventDefault()
-        write?.()
-      }}
-    >
-      <FormLabel>
-        Ethereum address
-      </FormLabel>
-      <Input
-        type="text"
-        placeholder="Who's this attestation about?"
-        onChange={(e) => setAbout(e.target.value)}
-        value={about}
-        valid={isAboutValid}
-      />
-      <FormLabel>
-        Attestation key&nbsp;
-        <TooltipContainer
-          onMouseEnter={() => setKeyHover(true)}
-          onMouseLeave={() => setKeyHover(false)}
-        >
-          <TooltipIcon
-            src={tooltip}
-            alt="attestation key information tooltip icon"
-            hover={keyHover}
-          />
-          <TooltipBox>
-            <ul>
-              <li>
-                The key describes what the attestation is about.
-              </li>
-              <li>
-                Example: sbvegan.interface.used:bool
-              </li>
-            </ul>
-          </TooltipBox>
-        </TooltipContainer>
-      </FormLabel>
-      <Input
-        type="text"
-        onChange={(e) => {
-          const key = e.target.value
-          if (key.length > 31) {
-            setKey(key)
-            const bytesLikeKey = ethers.utils.toUtf8Bytes(key)
-            const keccak256HashedKey = ethers.utils.keccak256(bytesLikeKey)
-            setHashedKey(keccak256HashedKey)
-          } else {
-            setKey(key)
-            setHashedKey('')
-          }
+    <>
+      <AttestForm
+        onSubmit={(e) => {
+          e.preventDefault()
+          write?.()
         }}
-        placeholder="Attestation key"
-        value={key}
-        valid={isKeyValid}
-      />
-      {key.length > 31
-        ? <>
-            <FormLabel>
-              Hashed attestation key&nbsp;
-              <TooltipContainer
-                onMouseEnter={() => setHashedKeyHover(true)}
-                onMouseLeave={() => setHashedKeyHover(false)}
-              >
-                <TooltipIcon
-                  src={tooltip}
-                  alt="attestation key information tooltip icon"
-                  hover={hashedKeyHover}
+      >
+        <Title>New attestation</Title>
+        <FormLabel>
+          Ethereum address
+        </FormLabel>
+        <Input
+          type="text"
+          placeholder="Who's this attestation about?"
+          onChange={(e) => setAbout(e.target.value)}
+          value={about}
+          valid={isAboutValid}
+        />
+        <FormLabel>
+          Attestation key&nbsp;
+          <TooltipContainer
+            onMouseEnter={() => setKeyHover(true)}
+            onMouseLeave={() => setKeyHover(false)}
+          >
+            <TooltipIcon
+              src={tooltip}
+              alt="attestation key information tooltip icon"
+              hover={keyHover}
+            />
+            <TooltipBox>
+              <ul>
+                <li>
+                  The key describes what the attestation is about.
+                </li>
+                <li>
+                  Example: sbvegan.interface.used:bool
+                </li>
+              </ul>
+            </TooltipBox>
+          </TooltipContainer>
+        </FormLabel>
+        <Input
+          type="text"
+          onChange={(e) => {
+            const key = e.target.value
+            if (key.length > 31) {
+              setKey(key)
+              const bytesLikeKey = ethers.utils.toUtf8Bytes(key)
+              const keccak256HashedKey = ethers.utils.keccak256(bytesLikeKey)
+              setHashedKey(keccak256HashedKey)
+            } else {
+              setKey(key)
+              setHashedKey('')
+            }
+          }}
+          placeholder="Attestation key"
+          value={key}
+          valid={isKeyValid}
+        />
+        {key.length > 31
+          ? <>
+              <FormLabel>
+                Hashed attestation key&nbsp;
+                <TooltipContainer
+                  onMouseEnter={() => setHashedKeyHover(true)}
+                  onMouseLeave={() => setHashedKeyHover(false)}
+                >
+                  <TooltipIcon
+                    src={tooltip}
+                    alt="attestation key information tooltip icon"
+                    hover={hashedKeyHover}
+                  />
+                  <TooltipBox>
+                    <ul>
+                      <li>
+                        The key in the smart contract is limited to 32 bytes.
+                      </li>
+                      <li>
+                        When a key is 32 characters or longer, it is hashed with
+                        keccack256 to fit in the 32 bytes, and this is the result.
+                      </li>
+                      <li>
+                        This will be the key recorded and used for the AttestationStation.
+                      </li>
+                    </ul>
+                  </TooltipBox>
+                </TooltipContainer>
+              </FormLabel>
+              <HashedKey
+                type="text"
+                rows={2}
+                value={hashedKey}
                 />
-                <TooltipBox>
-                  <ul>
-                    <li>
-                      The key in the smart contract is limited to 32 bytes.
-                    </li>
-                    <li>
-                      When a key is 32 characters or longer, it is hashed with
-                      keccack256 to fit in the 32 bytes, and this is the result.
-                    </li>
-                    <li>
-                      This will be the key recorded and used for the AttestationStation.
-                    </li>
-                  </ul>
-                </TooltipBox>
-              </TooltipContainer>
+            </>
+          : <span></span>
+        }
+        <FormLabel>
+          Attestation value&nbsp;
+          <TooltipContainer
+            onMouseEnter={() => setValueHover(true)}
+            onMouseLeave={() => setValueHover(false)}
+          >
+            <TooltipIcon
+              src={tooltip}
+              alt="attestation value information tooltip icon"
+              hover={valueHover}
+            />
+            <TooltipBox>
+              <ul>
+                <li>
+                  The value that is associated with the key.
+                </li>
+                <li>
+                  Example: true
+                </li>
+              </ul>
+            </TooltipBox>
+          </TooltipContainer>
+        </FormLabel>
+        <Input
+          type="text"
+          placeholder="Attestation value"
+          onChange={(e) => setVal(e.target.value)}
+          value={val}
+          valid={isValValid}
+        />
+        <SubmitButton disabled={!write || isLoading}>
+          {isLoading ? 'Making attestion' : 'Make attestation'}
+        </SubmitButton>
+        {isSuccess && (
+          <div>
+            <FormLabel>
+              Successfully made attestation:&nbsp;
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://goerli-optimism.etherscan.io/tx/${data?.hash}`}>
+                  etherscan transaction
+              </Link>
             </FormLabel>
-            <HashedKey
-              type="text"
-              rows={2}
-              value={hashedKey}
-              />
-          </>
-        : <span></span>
-      }
-      <FormLabel>
-        Attestation value&nbsp;
-        <TooltipContainer
-          onMouseEnter={() => setValueHover(true)}
-          onMouseLeave={() => setValueHover(false)}
-        >
-          <TooltipIcon
-            src={tooltip}
-            alt="attestation value information tooltip icon"
-            hover={valueHover}
-          />
-          <TooltipBox>
-            <ul>
-              <li>
-                The value that is associated with the key.
-              </li>
-              <li>
-                Example: true
-              </li>
-            </ul>
-          </TooltipBox>
-        </TooltipContainer>
-      </FormLabel>
-      <Input
-        type="text"
-        placeholder="Attestation value"
-        onChange={(e) => setVal(e.target.value)}
-        value={val}
-        valid={isValValid}
-      />
-      <SubmitButton disabled={!write || isLoading}>
-        {isLoading ? 'Making attestion' : 'Make attestation'}
-      </SubmitButton>
-      {isSuccess && (
-        <div>
-          <FormLabel>
-            Successfully made attestation:&nbsp;
-            <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://goerli-optimism.etherscan.io/tx/${data?.hash}`}>
-                etherscan transaction
-            </Link>
-          </FormLabel>
-        </div>
-      )}
-      {(isPrepareError || isError) && (
-        <div>
-          <FormLabel>
-            Error: {(prepareError || error)?.message}
-          </FormLabel>
-        </div>
-      )}
-    </AttestForm>
+          </div>
+        )}
+        {(isPrepareError || isError) && (
+          <div>
+            <FormLabel>
+              Error: {(prepareError || error)?.message}
+            </FormLabel>
+          </div>
+        )}
+      </AttestForm>
+    </>
   )
 }
 

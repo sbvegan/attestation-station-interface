@@ -5,6 +5,20 @@ import { useContractRead } from 'wagmi'
 import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
+const Title = styled.h1`
+  /* Text/Bold 24pt · 1.5rem */
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+
+  /* identical to box height, or 133% */
+
+  /* 🌤️ $neutral/900 (Text) */
+  color: #202327;
+`
+
 const AttestForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -33,6 +47,19 @@ const Input = styled.input`
   ${({ valid }) => !valid && `
     border-color: #ff0420;
   `}
+`
+
+const Textarea = styled.textarea`
+  align-items: center;
+  border: 1px solid #cbd5e0;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 8px 0;
+  outline-style: none;
+  padding: 9px 12px;
+  width: 420px;
+  resize:none;
 `
 
 const ReadAttestation = () => {
@@ -66,6 +93,7 @@ const ReadAttestation = () => {
 
   return (
     <AttestForm>
+      <Title>Read attestation</Title>
       <FormLabel>Creator&apos;s Ethereum address</FormLabel>
       <Input
         type="text"
@@ -100,12 +128,12 @@ const ReadAttestation = () => {
         valid={isKeyValid}
       />
       {data
-        ? <div>
+        ? <>
           <FormLabel>Value</FormLabel>
-          <p>{data}</p>
+          <Textarea>{data}</Textarea>
           <FormLabel>String formatted value</FormLabel>
-          <p>{data ? ethers.utils.toUtf8String(data) : ''}</p>
-        </div>
+          <Textarea>{data ? ethers.utils.toUtf8String(data) : ''}</Textarea>
+        </>
         : <></>
       }
       {(isError) && (

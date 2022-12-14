@@ -22,7 +22,7 @@ const AppWrapper = styled.div`
   background-color: #F1F4F9;
 `
 
-const BodyWrapper = styled.div`
+const ContentWrapper = styled.div`
   height: calc(100vh - 72px);
   width: 100%;
 `
@@ -57,13 +57,13 @@ export default function App () {
             activeContent={activeContent}
             setActiveContent={setActiveContent}
           />
-          <BodyWrapper>
+          <ContentWrapper>
             <Attestations
               activeContent={activeContent}
               setActiveContent={setActiveContent}
             />
-          </BodyWrapper>
-          </RainbowKitProvider>
+          </ContentWrapper>
+        </RainbowKitProvider>
       </WagmiConfig>
     </AppWrapper>
   )

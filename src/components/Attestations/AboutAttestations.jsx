@@ -2,6 +2,20 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+const Title = styled.h1`
+  /* Text/Bold 24pt · 1.5rem */
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+
+  /* identical to box height, or 133% */
+
+  /* 🌤️ $neutral/900 (Text) */
+  color: #202327;
+`
+
 const AboutContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,44 +48,45 @@ const Bold = styled.span`
 const AboutAttestations = () => {
   return (
     <AboutContainer>
-        <SubSection>What&apos;s the AttestationStation?</SubSection>
-        <Text>
-          The AttestationStation is an <Bold>attestation smart contract </Bold>
-          deployed on Optimism. It enables anyone to make arbitrary attestations
-          about other addresses.
-        </Text>
+      <Title>About</Title>
+      <SubSection>What&apos;s the AttestationStation?</SubSection>
+      <Text>
+        The AttestationStation is an <Bold>attestation smart contract </Bold>
+        deployed on Optimism. It enables anyone to make arbitrary attestations
+        about other addresses.
+      </Text>
 
-        <SubSection>What&apos;s the AttestationStation Interface?</SubSection>
-        <Text>
-          A <Bold>no-code open source solution to start making your own attestations </Bold>
-          from your favorite soyboy (: If you&apos;d like to make a contribution or
-          report an issue; please head over to the&nbsp;
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/sbvegan/attestation-station-interface"
-          >
-            Github repository
-          </Link>.
-        </Text>
+      <SubSection>What&apos;s the AttestationStation Interface?</SubSection>
+      <Text>
+        A <Bold>no-code open source solution to start making your own attestations </Bold>
+        from your favorite soyboy (: If you&apos;d like to make a contribution or
+        report an issue; please head over to the&nbsp;
+        <Link
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/sbvegan/attestation-station-interface"
+        >
+          Github repository
+        </Link>.
+      </Text>
 
-        <SubSection>Okay, but why?</SubSection>
-        <Text>
-          Ultimately the goal for the AttestationStation is <Bold>to serve as an accessible data
-          source for builders creating reputation related apps</Bold>. It can be used for a wide
-          variety of applications including voting, reputations, reviews, and more.
-        </Text>
+      <SubSection>Okay, but why?</SubSection>
+      <Text>
+        Ultimately the goal for the AttestationStation is <Bold>to serve as an accessible data
+        source for builders creating reputation related apps</Bold>. It can be used for a wide
+        variety of applications including voting, reputations, reviews, and more.
+      </Text>
 
-        <SubSection>Learn more</SubSection>
-        <Text>
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://community.optimism.io/docs/governance/attestation-station/#"
-          >
-              Official Optimism Documentation
-          </Link>
-        </Text>
+      <SubSection>Learn more</SubSection>
+      <Text>
+        <Link
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://community.optimism.io/docs/governance/attestation-station/#"
+        >
+            Official Optimism Documentation
+        </Link>
+      </Text>
     </AboutContainer>
   )
 }
