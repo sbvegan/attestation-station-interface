@@ -7,22 +7,11 @@ import {
   useWaitForTransaction
 } from 'wagmi'
 import tooltip from '../../assets/svg/tooltip.svg'
-import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
+import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
-const Title = styled.h1`
-  /* Text/Bold 24pt · 1.5rem */
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
-
-  /* identical to box height, or 133% */
-
-  /* 🌤️ $neutral/900 (Text) */
-  color: #202327;
-`
+import { H2, Body14Bold } from '../StyledTypography'
+import { PrimaryButton } from '../StyledButton'
 
 const AttestForm = styled.form`
   display: flex;
@@ -31,12 +20,8 @@ const AttestForm = styled.form`
   text-align: left;
 `
 
-const FormLabel = styled.label`
-  box-sizing: border-box;
-  color: rgb(32,35,39);
-  font-family: Open Sans, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+const FormLabel = styled(Body14Bold)`
+  margin: 0
 `
 
 const Input = styled.input`
@@ -65,25 +50,6 @@ const HashedKey = styled.textarea`
   padding: 9px 12px;
   width: 420px;
   resize:none;
-`
-
-const SubmitButton = styled.button`
-  background-color: #ff0420;
-  border: none;
-  border-radius: 12px;
-  box-sizing: border-box;
-  color: rgb(255, 255, 255);
-  font-size: 18px;
-  font-weight: 700;
-  height: 60px;
-  width: 100%;
-  margin: 16px 0;
-  padding: 0 24px;
-  transition: all 0.2s ease;
-  &:hover {
-    cursor: pointer;
-    background-color: rgb(235, 0, 26);
-  }
 `
 
 const Link = styled.a`
@@ -116,7 +82,7 @@ const TooltipContainer = styled.span`
 }
 `
 
-const Attest = () => {
+const NewAttestation = () => {
   const [about, setAbout] = useState('')
   const [key, setKey] = useState('')
   const [hashedKey, setHashedKey] = useState('')
@@ -140,7 +106,7 @@ const Attest = () => {
     error: prepareError,
     isError: isPrepareError
   } = usePrepareContractWrite({
-    address: AttestationStationOptimismGoerliAddress,
+    address: AttestationStationAddress,
     abi: AttestationStationABI,
     functionName: 'attest',
     args: [
@@ -188,7 +154,7 @@ const Attest = () => {
           write?.()
         }}
       >
-        <Title>New attestation</Title>
+        <H2>New attestation</H2>
         <FormLabel>
           Ethereum address
         </FormLabel>
@@ -307,9 +273,9 @@ const Attest = () => {
           value={val}
           valid={isValValid}
         />
-        <SubmitButton disabled={!write || isLoading}>
+        <PrimaryButton disabled={!write || isLoading}>
           {isLoading ? 'Making attestion' : 'Make attestation'}
-        </SubmitButton>
+        </PrimaryButton>
         {isSuccess && (
           <div>
             <FormLabel>
@@ -335,4 +301,4 @@ const Attest = () => {
   )
 }
 
-export default Attest
+export default NewAttestation

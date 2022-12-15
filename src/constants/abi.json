@@ -1,4 +1,5 @@
 [
+  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
   {
     "anonymous": false,
     "inputs": [
@@ -38,7 +39,7 @@
           { "internalType": "bytes32", "name": "key", "type": "bytes32" },
           { "internalType": "bytes", "name": "val", "type": "bytes" }
         ],
-        "internalType": "struct SocialContract.AttestationData[]",
+        "internalType": "struct AttestationStation.AttestationData[]",
         "name": "_attestations",
         "type": "tuple[]"
       }
@@ -56,6 +57,13 @@
     ],
     "name": "attestations",
     "outputs": [{ "internalType": "bytes", "name": "", "type": "bytes" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "version",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
     "stateMutability": "view",
     "type": "function"
   }

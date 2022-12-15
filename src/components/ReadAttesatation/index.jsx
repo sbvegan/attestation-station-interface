@@ -2,22 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useContractRead } from 'wagmi'
-import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
+import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
-const Title = styled.h1`
-  /* Text/Bold 24pt · 1.5rem */
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
-
-  /* identical to box height, or 133% */
-
-  /* 🌤️ $neutral/900 (Text) */
-  color: #202327;
-`
+import { H2, Body14Bold } from '../StyledTypography'
 
 const AttestForm = styled.form`
   display: flex;
@@ -26,12 +14,8 @@ const AttestForm = styled.form`
   text-align: left;
 `
 
-const FormLabel = styled.label`
-  box-sizing: border-box;
-  color: rgb(32,35,39);
-  font-family: Open Sans, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+const FormLabel = styled(Body14Bold)`
+  margin: 0
 `
 
 const Input = styled.input`
@@ -73,7 +57,7 @@ const ReadAttestation = () => {
   const [isKeyValid, setIsKeyValid] = useState(false)
 
   const { data, error, isError } = useContractRead({
-    address: AttestationStationOptimismGoerliAddress,
+    address: AttestationStationAddress,
     abi: AttestationStationABI,
     functionName: 'attestations',
     args: [creator, about, bytes32Key],
@@ -93,7 +77,7 @@ const ReadAttestation = () => {
 
   return (
     <AttestForm>
-      <Title>Read attestation</Title>
+      <H2>Read attestation</H2>
       <FormLabel>Creator&apos;s Ethereum address</FormLabel>
       <Input
         type="text"
@@ -130,9 +114,15 @@ const ReadAttestation = () => {
       {data
         ? <>
           <FormLabel>Value</FormLabel>
-          <Textarea>{data}</Textarea>
+          <Textarea
+            readonly
+            value={data}
+          />
           <FormLabel>String formatted value</FormLabel>
-          <Textarea>{data ? ethers.utils.toUtf8String(data) : ''}</Textarea>
+          <Textarea
+            readonly
+            value={data ? ethers.utils.toUtf8String(data) : ''}
+          />
         </>
         : <></>
       }

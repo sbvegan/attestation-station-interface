@@ -1,2 +1,2 @@
-export const AttestationStationOptimismGoerliAddress = '0x7787194CCA11131C0159c0AcFf7E127CF0B676ed'
-export const AttestationStationOptimismMainnetAddress = ''
+// same address for mainnet and goerli
+export const AttestationStationAddress = '0xEE36eaaD94d1Cc1d0eccaDb55C38bFfB6Be06C77'
