@@ -4,7 +4,8 @@ import { ethers } from 'ethers'
 import {
   usePrepareContractWrite,
   useContractWrite,
-  useWaitForTransaction
+  useWaitForTransaction,
+  useNetwork
 } from 'wagmi'
 import tooltip from '../../assets/svg/tooltip.svg'
 import { AttestationStationAddress } from '../../constants/addresses'
@@ -83,6 +84,9 @@ const TooltipContainer = styled.span`
 `
 
 const NewAttestation = () => {
+  const { chain } = useNetwork()
+  const [etherscanBaseLink, setEtherscanBaseLink] = useState('')
+
   const [about, setAbout] = useState('')
   const [key, setKey] = useState('')
   const [hashedKey, setHashedKey] = useState('')
@@ -115,6 +119,15 @@ const NewAttestation = () => {
     enabled: Boolean(about) && Boolean(key) && Boolean(val)
   })
   const { data, error, isError, write } = useContractWrite(config)
+
+  useEffect(() => {
+    if (chain.name === 'Optimism') {
+      setEtherscanBaseLink('https://optimistic.etherscan.io/tx/')
+    }
+    if (chain.name === 'Optimism Goerli') {
+      setEtherscanBaseLink('https://goerli-optimism.etherscan.io/tx/')
+    }
+  }, [chain])
 
   useEffect(() => {
     try {
@@ -283,7 +296,7 @@ const NewAttestation = () => {
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`https://goerli-optimism.etherscan.io/tx/${data?.hash}`}>
+                href={`${etherscanBaseLink}${data?.hash}`}>
                   etherscan transaction
               </Link>
             </FormLabel>
