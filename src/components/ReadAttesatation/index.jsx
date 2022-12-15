@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useContractRead } from 'wagmi'
-import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
+import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
 import { H2, Body14Bold } from '../StyledTypography'
@@ -57,7 +57,7 @@ const ReadAttestation = () => {
   const [isKeyValid, setIsKeyValid] = useState(false)
 
   const { data, error, isError } = useContractRead({
-    address: AttestationStationOptimismGoerliAddress,
+    address: AttestationStationAddress,
     abi: AttestationStationABI,
     functionName: 'attestations',
     args: [creator, about, bytes32Key],
@@ -114,9 +114,15 @@ const ReadAttestation = () => {
       {data
         ? <>
           <FormLabel>Value</FormLabel>
-          <Textarea>{data}</Textarea>
+          <Textarea
+            readonly
+            value={data}
+          />
           <FormLabel>String formatted value</FormLabel>
-          <Textarea>{data ? ethers.utils.toUtf8String(data) : ''}</Textarea>
+          <Textarea
+            readonly
+            value={data ? ethers.utils.toUtf8String(data) : ''}
+          />
         </>
         : <></>
       }

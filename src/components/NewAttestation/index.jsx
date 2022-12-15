@@ -7,7 +7,7 @@ import {
   useWaitForTransaction
 } from 'wagmi'
 import tooltip from '../../assets/svg/tooltip.svg'
-import { AttestationStationOptimismGoerliAddress } from '../../constants/addresses'
+import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
 import { H2, Body14Bold } from '../StyledTypography'
@@ -106,7 +106,7 @@ const NewAttestation = () => {
     error: prepareError,
     isError: isPrepareError
   } = usePrepareContractWrite({
-    address: AttestationStationOptimismGoerliAddress,
+    address: AttestationStationAddress,
     abi: AttestationStationABI,
     functionName: 'attest',
     args: [
