@@ -70,6 +70,7 @@ const TooltipBox = styled.div`
   padding: 8px;
   border-radius: 6px;
   position: absolute;
+  z-index: 1;
 `
 
 const TooltipContainer = styled.span`
