@@ -122,11 +122,15 @@ const NewAttestation = () => {
   const { data, error, isError, write } = useContractWrite(config)
 
   useEffect(() => {
-    if (chain.name === 'Optimism') {
-      setEtherscanBaseLink('https://optimistic.etherscan.io/tx/')
-    }
-    if (chain.name === 'Optimism Goerli') {
-      setEtherscanBaseLink('https://goerli-optimism.etherscan.io/tx/')
+    try {
+      if (chain.name === 'Optimism') {
+        setEtherscanBaseLink('https://optimistic.etherscan.io/tx/')
+      }
+      if (chain.name === 'Optimism Goerli') {
+        setEtherscanBaseLink('https://goerli-optimism.etherscan.io/tx/')
+      }
+    } catch (e) {
+      console.error(e)
     }
   }, [chain])
 
