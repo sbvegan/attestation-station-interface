@@ -15,7 +15,7 @@ import {
 } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 
-import Attestations from './components/Attestations'
+import Content from './components/Content'
 import Header from './components/Header'
 
 const AppWrapper = styled.div`
@@ -24,13 +24,10 @@ const AppWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   height: calc(100vh - 72px);
-  width: 100%;
 `
 
-// todo: add mainnet when the contracts are deployed
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.optimism, chain.optimismGoerli],
-  // [chain.optimismGoerli],
   [publicProvider()]
 )
 
@@ -58,7 +55,7 @@ export default function App () {
             setActiveContent={setActiveContent}
           />
           <ContentWrapper>
-            <Attestations
+            <Content
               activeContent={activeContent}
               setActiveContent={setActiveContent}
             />
