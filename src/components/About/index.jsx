@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { H2, Body14, Body14Bold } from '../StyledTypography'
+import { H2, Body14, Body14Bold } from '../OPStyledTypography'
 
 const AboutContainer = styled.div`
   display: flex;

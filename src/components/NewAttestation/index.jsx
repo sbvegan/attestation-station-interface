@@ -11,18 +11,17 @@ import tooltip from '../../assets/svg/tooltip.svg'
 import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
-import { H2, Body14Bold } from '../StyledTypography'
-import { PrimaryButton } from '../StyledButton'
+import { H2, Body14Bold } from '../OPStyledTypography'
+import { PrimaryButton } from '../OPStyledButton'
 
 const AttestForm = styled.form`
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  text-align: left;
+  align-items: flex-start;
 `
 
 const FormLabel = styled(Body14Bold)`
-  margin: 0
+  margin: 0;
 `
 
 const Input = styled.input`
@@ -166,13 +165,13 @@ const NewAttestation = () => {
 
   return (
     <>
+      <H2>New attestation</H2>
       <AttestForm
         onSubmit={(e) => {
           e.preventDefault()
           write?.()
         }}
       >
-        <H2>New attestation</H2>
         <FormLabel>
           Ethereum address
         </FormLabel>

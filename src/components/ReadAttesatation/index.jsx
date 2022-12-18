@@ -5,7 +5,7 @@ import { useContractRead } from 'wagmi'
 import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
-import { H2, Body14Bold } from '../StyledTypography'
+import { H2, Body14Bold } from '../OPStyledTypography'
 
 const AttestForm = styled.form`
   display: flex;
