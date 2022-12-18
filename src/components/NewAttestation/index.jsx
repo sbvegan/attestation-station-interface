@@ -11,7 +11,8 @@ import tooltip from '../../assets/svg/tooltip.svg'
 import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
-import { H2, Body14Bold } from '../OPStyledTypography'
+import { H2, Body16Medium } from '../OPStyledTypography'
+import { TextInput } from '../OPStyledTextInput'
 import { PrimaryButton } from '../OPStyledButton'
 
 const AttestForm = styled.form`
@@ -20,23 +21,30 @@ const AttestForm = styled.form`
   align-items: flex-start;
 `
 
-const FormLabel = styled(Body14Bold)`
-  margin: 0;
+const FormRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0px;
+  gap: 24px;
+  width: 672px;
+  height: 48px;
 `
 
-const Input = styled.input`
-  align-items: center;
-  border: 1px solid #cbd5e0;
-  border-radius: 12px;
-  box-sizing: border-box;
-  font-size: 14px;
-  margin: 8px 0;
-  outline-style: none;
-  padding: 9px 12px;
-  width: 420px;
-  ${({ valid }) => !valid && `
-    border-color: #ff0420;
-  `}
+const FormLabel = styled(Body16Medium)`
+  margin: 0;
+  width: 192px;
+  height: 24px;
+  text-align: right;
+`
+
+const FormButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 28px 0px 0px;
+  width: 672px;
 `
 
 const HashedKey = styled.textarea`
@@ -48,7 +56,8 @@ const HashedKey = styled.textarea`
   margin: 8px 0;
   outline-style: none;
   padding: 9px 12px;
-  width: 420px;
+  height: 48px;
+  width: 456px;
   resize:none;
 `
 
@@ -62,6 +71,7 @@ const TooltipIcon = styled.img`
 `
 
 const TooltipBox = styled.div`
+  text-align: left;
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -172,59 +182,65 @@ const NewAttestation = () => {
           write?.()
         }}
       >
-        <FormLabel>
-          Ethereum address
-        </FormLabel>
-        <Input
-          type="text"
-          placeholder="Who's this attestation about?"
-          onChange={(e) => setAbout(e.target.value)}
-          value={about}
-          valid={isAboutValid}
-        />
-        <FormLabel>
-          Attestation key&nbsp;
-          <TooltipContainer
-            onMouseEnter={() => setKeyHover(true)}
-            onMouseLeave={() => setKeyHover(false)}
-          >
-            <TooltipIcon
-              src={tooltip}
-              alt="attestation key information tooltip icon"
-              hover={keyHover}
-            />
-            <TooltipBox>
-              <ul>
-                <li>
-                  The key describes what the attestation is about.
-                </li>
-                <li>
-                  Example: sbvegan.interface.used:bool
-                </li>
-              </ul>
-            </TooltipBox>
-          </TooltipContainer>
-        </FormLabel>
-        <Input
-          type="text"
-          onChange={(e) => {
-            const key = e.target.value
-            if (key.length > 31) {
-              setKey(key)
-              const bytesLikeKey = ethers.utils.toUtf8Bytes(key)
-              const keccak256HashedKey = ethers.utils.keccak256(bytesLikeKey)
-              setHashedKey(keccak256HashedKey)
-            } else {
-              setKey(key)
-              setHashedKey('')
-            }
-          }}
-          placeholder="Attestation key"
-          value={key}
-          valid={isKeyValid}
-        />
+        <FormRow>
+          <FormLabel>
+            Ethereum address
+          </FormLabel>
+          <TextInput
+            type="text"
+            placeholder="Who's this attestation about?"
+            onChange={(e) => setAbout(e.target.value)}
+            value={about}
+            valid={isAboutValid}
+          />
+        </FormRow>
+
+        <FormRow>
+          <FormLabel>
+            Attestation key&nbsp;
+            <TooltipContainer
+              onMouseEnter={() => setKeyHover(true)}
+              onMouseLeave={() => setKeyHover(false)}
+            >
+              <TooltipIcon
+                src={tooltip}
+                alt="attestation key information tooltip icon"
+                hover={keyHover}
+              />
+              <TooltipBox>
+                <ul>
+                  <li>
+                    The key describes what the attestation is about.
+                  </li>
+                  <li>
+                    Example: sbvegan.interface.used:bool
+                  </li>
+                </ul>
+              </TooltipBox>
+            </TooltipContainer>
+          </FormLabel>
+          <TextInput
+            type="text"
+            onChange={(e) => {
+              const key = e.target.value
+              if (key.length > 31) {
+                setKey(key)
+                const bytesLikeKey = ethers.utils.toUtf8Bytes(key)
+                const keccak256HashedKey = ethers.utils.keccak256(bytesLikeKey)
+                setHashedKey(keccak256HashedKey)
+              } else {
+                setKey(key)
+                setHashedKey('')
+              }
+            }}
+            placeholder="Attestation key"
+            value={key}
+            valid={isKeyValid}
+          />
+        </FormRow>
+
         {key.length > 31
-          ? <>
+          ? <FormRow>
               <FormLabel>
                 Hashed attestation key&nbsp;
                 <TooltipContainer
@@ -257,42 +273,47 @@ const NewAttestation = () => {
                 rows={2}
                 value={hashedKey}
                 />
-            </>
+            </FormRow>
           : <span></span>
         }
-        <FormLabel>
-          Attestation value&nbsp;
-          <TooltipContainer
-            onMouseEnter={() => setValueHover(true)}
-            onMouseLeave={() => setValueHover(false)}
-          >
-            <TooltipIcon
-              src={tooltip}
-              alt="attestation value information tooltip icon"
-              hover={valueHover}
-            />
-            <TooltipBox>
-              <ul>
-                <li>
-                  The value that is associated with the key.
-                </li>
-                <li>
-                  Example: true
-                </li>
-              </ul>
-            </TooltipBox>
-          </TooltipContainer>
-        </FormLabel>
-        <Input
-          type="text"
-          placeholder="Attestation value"
-          onChange={(e) => setVal(e.target.value)}
-          value={val}
-          valid={isValValid}
-        />
-        <PrimaryButton disabled={!write || isLoading}>
-          {isLoading ? 'Making attestion' : 'Make attestation'}
-        </PrimaryButton>
+        <FormRow>
+          <FormLabel>
+            Attestation value&nbsp;
+            <TooltipContainer
+              onMouseEnter={() => setValueHover(true)}
+              onMouseLeave={() => setValueHover(false)}
+            >
+              <TooltipIcon
+                src={tooltip}
+                alt="attestation value information tooltip icon"
+                hover={valueHover}
+              />
+              <TooltipBox>
+                <ul>
+                  <li>
+                    The value that is associated with the key.
+                  </li>
+                  <li>
+                    Example: true
+                  </li>
+                </ul>
+              </TooltipBox>
+            </TooltipContainer>
+          </FormLabel>
+          <TextInput
+            type="text"
+            placeholder="Attestation value"
+            onChange={(e) => setVal(e.target.value)}
+            value={val}
+            valid={isValValid}
+          />
+        </FormRow>
+
+        <FormButton>
+          <PrimaryButton disabled={!write || isLoading}>
+            {isLoading ? 'Making attestion' : 'Make attestation'}
+          </PrimaryButton>
+        </FormButton>
         {isSuccess && (
           <div>
             <FormLabel>
