@@ -11,7 +11,7 @@ import tooltip from '../../assets/svg/tooltip.svg'
 import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
-import { H2, Body16Medium } from '../OPStyledTypography'
+import { H2 } from '../OPStyledTypography'
 import { TextInput } from '../OPStyledTextInput'
 import { PrimaryButton } from '../OPStyledButton'
 import { Select } from '../OPStyledSelect'
@@ -33,7 +33,10 @@ const FormRow = styled.div`
   height: 48px;
 `
 
-const FormLabel = styled(Body16Medium)`
+const FormLabel = styled.div`
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
   margin: 0;
   width: 192px;
   height: 24px;
@@ -199,7 +202,7 @@ const NewAttestation = () => {
             value={attestationType}
             onChange={(e) => setAttestationType(e.target.value)}
           >
-            <option value="default" selected hidden>Select attestation type</option>
+            <option value="default" hidden>Select attestation type</option>
             <option value="custom">Custom Attestation</option>
             <option value="soon" disabled>More Schemas Coming Soon</option>
           </AttestationTypeSelect>
@@ -333,7 +336,7 @@ const NewAttestation = () => {
               />
             </FormRow>
             <FormButton>
-              <PrimaryButton disabled={!write || isLoading}>
+              <PrimaryButton disabled={!write || isLoading || !(isAboutValid && isKeyValid && isValValid)}>
                 {isLoading ? 'Making attestion' : 'Make attestation'}
               </PrimaryButton>
             </FormButton>
