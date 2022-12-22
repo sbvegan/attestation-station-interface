@@ -11,37 +11,11 @@ import tooltip from '../../assets/svg/tooltip.svg'
 import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
+import { AttestForm, FormRow, FormLabel } from '../StyledFormComponents'
 import { H2 } from '../OPStyledTypography'
 import { TextInput } from '../OPStyledTextInput'
 import { PrimaryButton } from '../OPStyledButton'
 import { Select } from '../OPStyledSelect'
-
-const AttestForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`
-
-const FormRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 0px;
-  gap: 24px;
-  width: 672px;
-  height: 48px;
-`
-
-const FormLabel = styled.div`
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: 500;
-  margin: 0;
-  width: 192px;
-  height: 24px;
-  text-align: right;
-`
 
 const AttestationTypeSelect = styled(Select)`
   color: ${props => (props.value === 'default' ? '#8496AE' : 'inherit')}
