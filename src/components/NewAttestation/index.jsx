@@ -269,7 +269,7 @@ const NewAttestation = () => {
             {key.length > 31
               ? <FormRow>
                   <FormLabel>
-                    Hashed attestation key&nbsp;
+                    Hashed key&nbsp;
                     <TooltipContainer
                       onMouseEnter={() => setHashedKeyHover(true)}
                       onMouseLeave={() => setHashedKeyHover(false)}
