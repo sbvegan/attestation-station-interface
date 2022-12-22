@@ -164,13 +164,13 @@ const NewAttestation = () => {
         attest = {
           about,
           key: hashedKey,
-          val: ethers.utils.toUtf8Bytes(val)
+          val: ethers.utils.toUtf8Bytes(val === '' ? '0x' : val)
         }
       } else {
         attest = {
           about,
-          key: ethers.utils.formatBytes32String(key),
-          val: ethers.utils.toUtf8Bytes(val)
+          key: ethers.utils.formatBytes32String(key === '' ? '0x' : key),
+          val: ethers.utils.toUtf8Bytes(val === '' ? '0x' : val)
         }
       }
       setAttestation(attest)
@@ -203,8 +203,8 @@ const NewAttestation = () => {
             onChange={(e) => setAttestationType(e.target.value)}
           >
             <option value="default" hidden>Select attestation type</option>
-            <option value="custom">Custom Attestation</option>
-            <option value="soon" disabled>More Schemas Coming Soon</option>
+            <option value="custom">Custom attestation</option>
+            <option value="soon" disabled>More schemas coming soon</option>
           </AttestationTypeSelect>
         </FormRow>
         {attestationType === 'custom'
@@ -297,7 +297,7 @@ const NewAttestation = () => {
                   </FormLabel>
                   <HashedKey
                     type="text"
-                    rows={2}
+                    readOnly
                     value={hashedKey}
                     />
                 </FormRow>
