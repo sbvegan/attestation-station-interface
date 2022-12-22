@@ -125,7 +125,7 @@ const ReadAttestation = () => {
               <FormRow>
                 <FormLabel>Value</FormLabel>
                 <Textarea
-                  readonly
+                  readOnly
                   value={data}
                 />
               </FormRow>
@@ -133,7 +133,7 @@ const ReadAttestation = () => {
               <FormRow>
                 <FormLabel>String formatted value</FormLabel>
                 <Textarea
-                  readonly
+                  readOnly
                   value={data ? ethers.utils.toUtf8String(data) : ''}
                 />
               </FormRow>
