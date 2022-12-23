@@ -24,10 +24,12 @@ export const TextInput = styled.input`
 
   &:hover {
     border: 1px solid #A9B9CC;
+    border-color: #A9B9CC;
   }
 
   &:focus {
     border: 2px solid #2173DF;
+    border-color: #2173DF;
   }
 
   &:disabled {

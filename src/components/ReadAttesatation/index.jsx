@@ -5,33 +5,9 @@ import { useContractRead } from 'wagmi'
 import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
+import { AttestForm, FormRow, FormLabel } from '../StyledFormComponents'
 import { TextInput } from '../OPStyledTextInput'
-import { H2, Body16Medium } from '../OPStyledTypography'
-
-const AttestForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  text-align: left;
-`
-
-const FormRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 0px;
-  gap: 24px;
-  width: 672px;
-  height: 48px;
-`
-
-const FormLabel = styled(Body16Medium)`
-  margin: 0;
-  width: 192px;
-  height: 24px;
-  text-align: right;
-`
+import { H2 } from '../OPStyledTypography'
 
 const Textarea = styled.textarea`
   align-items: center;
@@ -125,7 +101,7 @@ const ReadAttestation = () => {
               <FormRow>
                 <FormLabel>Value</FormLabel>
                 <Textarea
-                  readonly
+                  readOnly
                   value={data}
                 />
               </FormRow>
@@ -133,7 +109,7 @@ const ReadAttestation = () => {
               <FormRow>
                 <FormLabel>String formatted value</FormLabel>
                 <Textarea
-                  readonly
+                  readOnly
                   value={data ? ethers.utils.toUtf8String(data) : ''}
                 />
               </FormRow>

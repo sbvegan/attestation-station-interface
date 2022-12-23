@@ -30,6 +30,13 @@ export const PrimaryButton = styled.button`
         cursor: pointer;
         background: #EB001A;
     }
+
+    &:disabled {
+        background: #F1F4F9;
+        border: 1px solid #E2E8F0;
+        color: #68778D;
+        cursor: not-allowed
+    }
 `
 
-// todo: pressed, focused, disabled
+// todo: pressed, focused
