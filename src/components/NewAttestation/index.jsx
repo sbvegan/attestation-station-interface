@@ -7,11 +7,11 @@ import {
   useWaitForTransaction,
   useNetwork
 } from 'wagmi'
-import tooltip from '../../assets/svg/tooltip.svg'
 import { AttestationStationAddress } from '../../constants/addresses'
 import AttestationStationABI from '../../constants/abi.json'
 
 import { AttestForm, FormRow, FormLabel } from '../StyledFormComponents'
+import Tooltip from '../Tooltip'
 import { H2 } from '../OPStyledTypography'
 import { TextInput } from '../OPStyledTextInput'
 import { PrimaryButton } from '../OPStyledButton'
@@ -47,34 +47,6 @@ const Link = styled.a`
   color: #f01a37;
 `
 
-const TooltipIcon = styled.img`
-  cursor: pointer;
-  height: 12px;
-`
-
-const TooltipBox = styled.div`
-  text-align: left;
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  padding: 8px;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-`
-
-const TooltipContainer = styled.span`
-  & ${TooltipIcon}:hover + ${TooltipBox} {
-    visibility: visible;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.8);
-    width: 404px;
-    padding: 8px 8px;
-    border-radius: 4px;
-}
-`
-
 const FeedbackMessage = styled.span`
   padding: 0px 36px;
 `
@@ -98,10 +70,6 @@ const NewAttestation = () => {
   const [isAboutValid, setIsAboutValid] = useState(false)
   const [isKeyValid, setIsKeyValid] = useState(false)
   const [isValValid, setIsValValid] = useState(false)
-
-  const [keyHover, setKeyHover] = useState(false)
-  const [hashedKeyHover, setHashedKeyHover] = useState(false)
-  const [valueHover, setValueHover] = useState(false)
 
   const {
     config,
@@ -199,26 +167,16 @@ const NewAttestation = () => {
             <FormRow>
               <FormLabel>
                 Attestation key&nbsp;
-                <TooltipContainer
-                  onMouseEnter={() => setKeyHover(true)}
-                  onMouseLeave={() => setKeyHover(false)}
-                >
-                  <TooltipIcon
-                    src={tooltip}
-                    alt="attestation key information tooltip icon"
-                    hover={keyHover}
-                  />
-                  <TooltipBox>
-                    <ul>
-                      <li>
-                        The key describes what the attestation is about.
-                      </li>
-                      <li>
-                        Example: sbvegan.interface.used:bool
-                      </li>
-                    </ul>
-                  </TooltipBox>
-                </TooltipContainer>
+                <Tooltip>
+                  <ul>
+                    <li>
+                      The key describes what the attestation is about.
+                    </li>
+                    <li>
+                      Example: sbvegan.interface.used:bool
+                    </li>
+                  </ul>
+                </Tooltip>
               </FormLabel>
               <TextInput
                 type="text"
@@ -244,30 +202,20 @@ const NewAttestation = () => {
               ? <FormRow>
                   <FormLabel>
                     Hashed key&nbsp;
-                    <TooltipContainer
-                      onMouseEnter={() => setHashedKeyHover(true)}
-                      onMouseLeave={() => setHashedKeyHover(false)}
-                    >
-                      <TooltipIcon
-                        src={tooltip}
-                        alt="attestation key information tooltip icon"
-                        hover={hashedKeyHover}
-                      />
-                      <TooltipBox>
-                        <ul>
-                          <li>
-                            The key in the smart contract is limited to 32 bytes.
-                          </li>
-                          <li>
-                            When a key is 32 characters or longer, it is hashed with
-                            keccack256 to fit in the 32 bytes, and this is the result.
-                          </li>
-                          <li>
-                            This will be the key recorded and used for the AttestationStation.
-                          </li>
-                        </ul>
-                      </TooltipBox>
-                    </TooltipContainer>
+                    <Tooltip>
+                      <ul>
+                        <li>
+                          The key in the smart contract is limited to 32 bytes.
+                        </li>
+                        <li>
+                          When a key is 32 characters or longer, it is hashed with
+                          keccack256 to fit in the 32 bytes, and this is the result.
+                        </li>
+                        <li>
+                          This will be the key recorded and used for the AttestationStation.
+                        </li>
+                      </ul>
+                    </Tooltip>
                   </FormLabel>
                   <HashedKey
                     type="text"
@@ -280,26 +228,16 @@ const NewAttestation = () => {
             <FormRow>
               <FormLabel>
                 Attestation value&nbsp;
-                <TooltipContainer
-                  onMouseEnter={() => setValueHover(true)}
-                  onMouseLeave={() => setValueHover(false)}
-                >
-                  <TooltipIcon
-                    src={tooltip}
-                    alt="attestation value information tooltip icon"
-                    hover={valueHover}
-                  />
-                  <TooltipBox>
-                    <ul>
-                      <li>
-                        The value that is associated with the key.
-                      </li>
-                      <li>
-                        Example: true
-                      </li>
-                    </ul>
-                  </TooltipBox>
-                </TooltipContainer>
+                <Tooltip>
+                  <ul>
+                    <li>
+                      The value that is associated with the key.
+                    </li>
+                    <li>
+                      Example: true
+                    </li>
+                  </ul>
+                </Tooltip>
               </FormLabel>
               <TextInput
                 type="text"
