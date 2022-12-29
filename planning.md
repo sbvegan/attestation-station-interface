@@ -8,7 +8,7 @@ The interface will enable non-developers to interact with the Attestation Statio
 
 The interface will allow users to connect their wallets to the web application.
 
-### Network Switch
+### Network Switch (done)
 
 The interface will allow users to switch between different blockchain networks.
 
@@ -30,7 +30,7 @@ _Note: the user's wallet will need to be connected to a supported network_
 
 The interface will allow users to read attestations from the `AttestationStation` contract.
 
-### User Feedback
+### User Feedback (done, but can be improved)
 
 The interface will provide helpful user feedback on `AttestationStation` contract interactions. This will include, but not limited to:
 
@@ -41,6 +41,10 @@ The interface will provide helpful user feedback on `AttestationStation` contrac
 - [x] Transaction confirmed, etherscan link
 - [x] Key tooltip with more information
 - [x] Value tooltip with more information
+
+### User's Attestations
+
+The interface will allow users to read the attestations that they have made or the attestations made about them.
 
 ## Future Phase Items
 
