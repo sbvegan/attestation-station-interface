@@ -2,7 +2,7 @@
 
 **_NOTE: this is only available on Optimism Goerli. The mainnet contracts will be launched soon._**
 
-An open source interface for Optimism's AttestationStation -- a data primative for making arbitrary attestations about Ethereum addresses -- [OPLab's Official Documentation](https://community.optimism.io/docs/governance/attestation-station/#).
+An open source interface for Optimism's AttestationStation -- a data primative for making arbitrary attestations about Ethereum addresses -- [OP Labs' Official Documentation](https://community.optimism.io/docs/governance/attestation-station/#).
 
 [![attestationstation-interface](./attestationstation-interface.png)](https://youtu.be/rBesMSd0GzM)
 
