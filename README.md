@@ -27,4 +27,4 @@ MIT
 
 ## Acknowledgements
 
-Thank you Zain and the OP Labs ecosystem team for giving me an inside peak at what y'all are cooking up! I'm excited for the Optimistic vision, how it echos a cypher/solar punk future, and how I can help make it a reality.
+Thank you [Zain](https://twitter.com/zainbacchus) and the OP Labs ecosystem team for giving me an inside peak at what y'all are cooking up! Thank you [Kevin](https://twitter.com/lanceplaine) for the design and sharing the OP design figma files (btw, his designs look much better than my implementation). I'm excited for the Optimistic vision, how it echos a cypher/solar punk future, and how I can help make it a reality.
