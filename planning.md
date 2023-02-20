@@ -42,16 +42,40 @@ The interface will provide helpful user feedback on `AttestationStation` contrac
 - [x] Key tooltip with more information
 - [x] Value tooltip with more information
 
-### User's Attestations
+### My Attestations
 
-The interface will allow users to read the attestations that they have made or the attestations made about them.
+The interface will allow users to read the attestations involving their address. They will be able to toggle between ones they have made or the attestations made about them. Attestation Data that will be included is: 
+
+- transaction hash 
+- etherscan link
+- creator address
+- about address
+- timestamp
+- key UTF format
+- key bytes format
+- value UTF format
+- valute bytes format
+
+### Batched Attestations
+
+The interface will allow users to make batches of attestations in a single blockchain transaction.
 
 ## Future Phase Items
 
+These future phase items will probably manifest in a different application. I am currently imagining an indexing component that writes attestations to a database, an api that can read attestation data without querying the blockchain, and a new UI to interact with these modules.
+
 ### Attestation Listener
 
-The interface will listen for attestations made on the network and show them as they are written.
+The interface will listen for attestations made on the network and write them to a database.
+
+### Attestation Database
+
+This database will house all attestations made and allow for quicker access and less node interaction costs.
+
+### Attestation API
+
+This api will query the database to provide attestations with simpler request formats. 
 
 ### Attestation Explorer
 
-The interface will allow users to read all the attestation keys and values made about addresses they provide.
+A new interface that will orchestrate the above three modules functionality.
