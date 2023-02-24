@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import NewAttestation from '../NewAttestation'
 import ReadAttestation from '../ReadAttesatation'
+import MyAttestations from '../MyAttestations'
 import About from '../About'
 
 const Page = styled.div`
@@ -34,6 +35,9 @@ const Content = (props) => {
         setContent(<ReadAttestation />)
         break
       case 2:
+        setContent(<MyAttestations />)
+        break
+      case 3:
         setContent(<About />)
         break
       default:

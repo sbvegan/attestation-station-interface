@@ -82,6 +82,12 @@ const Header = (props) => {
           active={props.activeContent === 2}
           onClick={() => props.setActiveContent(2)}
         >
+          My attestations
+        </Link>
+        <Link
+          active={props.activeContent === 3}
+          onClick={() => props.setActiveContent(3)}
+        >
           About
         </Link>
         <ConnectButton
