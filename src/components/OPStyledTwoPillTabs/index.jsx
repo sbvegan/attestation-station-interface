@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+/* eslint-disable react/prop-types */
+import React from 'react'
 import styled from 'styled-components'
+import { Body14 } from '../OPStyledTypography'
 
 // todo: fix styling: text, padding
 // todo: pass parameters for tabs
@@ -24,7 +26,7 @@ const Tab = styled.li`
   align-items: center;
   padding: 4px;
   width: 132px;
-  height: 32px;
+  height: 30px;
   background: #FFFFFF;
   box-shadow: ${({ active }) => active ? '0px 0px 8px rgba(20, 23, 26, 0.08), 0px 0px 4px rgba(20, 23, 26, 0.04)' : ''};
   border-radius: 100px;
@@ -32,30 +34,19 @@ const Tab = styled.li`
   cursor: pointer;
 `
 
-const PillTab = () => {
-  const tabs = [
-    {
-      label: 'Received'
-    },
-    {
-      label: 'Sent'
-    }
-  ]
-
-  const [activeTab, setActiveTab] = useState(0)
-
+const OPStyledTwoPillTabs = (props) => {
   return (
     <>
       <TabContainer>
-        {tabs.map((tab, index) => (
+        {props.tabs.map((tab, index) => (
           <Tab
             key={index}
-            active={index === activeTab}
+            active={index === props.activeTab}
             onClick={() => {
-              setActiveTab(index)
+              props.setActiveTab(index)
             }}
           >
-            {tab.label}
+            <Body14>{tab.label}</Body14>
           </Tab>
         ))}
       </TabContainer>
@@ -63,4 +54,4 @@ const PillTab = () => {
   )
 }
 
-export default PillTab
+export default OPStyledTwoPillTabs

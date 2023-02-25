@@ -29,16 +29,16 @@ const Content = (props) => {
   useEffect(() => {
     switch (props.activeContent) {
       case 0:
-        setContent(<NewAttestation />)
+        setContent(<Section><NewAttestation /></Section>)
         break
       case 1:
-        setContent(<ReadAttestation />)
+        setContent(<Section><ReadAttestation /></Section>)
         break
       case 2:
         setContent(<MyAttestations />)
         break
       case 3:
-        setContent(<About />)
+        setContent(<Section><About /></Section>)
         break
       default:
         setContent(<div>How&apos;d you get here???</div>)
@@ -48,9 +48,7 @@ const Content = (props) => {
 
   return (
     <Page>
-      <Section>
-        {content}
-      </Section>
+      {content}
     </Page>
   )
 }
