@@ -137,6 +137,10 @@ export const Body16 = styled.p`
     color: #202327;
 `
 
+export const Body16Grey = styled(Body16)`
+    color: ##68778D;
+`
+
 export const Body16Medium = styled(Body16)`
     font-weight: 500;
 `

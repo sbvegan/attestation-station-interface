@@ -37,7 +37,38 @@ const MyAttestations = () => {
     }
   ]
 
-  const attestations = []
+  const attestations = [
+    {
+      hash: '0x9a24de656d4b7b9b5b57735eb31b2c1568575ad08432fbc81b4673862ab79526',
+      creator: '0xd34a...1fa2',
+      about: '0xd34a...1fa2',
+      timestamp: 'Feb-17-2023',
+      keyUTF: 'key',
+      keyBytes: '0x74696d654372656174656454776974746572',
+      valueUTF: 'Value UTF',
+      valueBytes: '0x323032312d30342d3139'
+    },
+    {
+      hash: '0x9a24de656d4b7b9b5b57735eb31b2c1568575ad08432fbc81b4673862ab79526',
+      creator: '0xd34a...1fa2',
+      about: '0xd34a...1fa2',
+      timestamp: 'Feb-17-2023',
+      keyUTF: 'key but longer',
+      keyBytes: '0x74696d654372656174656454776974746572',
+      valueUTF: 'Value UTF',
+      valueBytes: '0x323032312d30342d3139'
+    },
+    {
+      hash: '0x9a24de656d4b7b9b5b57735eb31b2c1568575ad08432fbc81b4673862ab79526',
+      creator: '0xd34a...1fa2',
+      about: '0xd34a...1fa2',
+      timestamp: 'Feb-17-2023',
+      keyUTF: 'key',
+      keyBytes: '0x74696d654372656174656454776974746572',
+      valueUTF: 'Value but longer',
+      valueBytes: '0x323032312d30342d3139'
+    }
+  ]
 
   return (
     <Main>
