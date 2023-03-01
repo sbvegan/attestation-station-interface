@@ -29,7 +29,7 @@ const AttestationContent = styled.div`
 `
 
 const Left = styled.div`
-  width: 50%;
+  width: 60%;
   display: flex;
 `
 
@@ -42,7 +42,7 @@ const Value = styled.div`
 `
 
 const Right = styled.div`
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
 `

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useAccount } from 'wagmi'
 import { H2, Body16Medium } from '../OPStyledTypography'
 import styled from 'styled-components'
 import PillTab from '../OPStyledTwoPillTabs'
 import Attestations from '../Attestations'
+import { shortenEthereumAddress } from '../../utils'
 
 const Main = styled.main`
   display: flex;
@@ -20,11 +22,10 @@ const AttestationCount = styled(Body16Medium)`
 `
 
 const MyAttestations = () => {
+  const { address, isConnected } = useAccount()
   const [activeTab, setActiveTab] = useState(0)
 
-  // todo: retrieve the user's address
   // todo: retrieve the attestations associated with the address
-  // todo: add address to the top of the content
   // todo: handle the case when the wallet isn't connected
   // todo: add attestation components: key, value, timestamp, addresses
   // todo: add full attestation details
@@ -72,14 +73,19 @@ const MyAttestations = () => {
 
   return (
     <Main>
-      <H2>0xtodoaddtheconnectedwalletaddress attestations</H2>
-      <PillTab
-        tabs={tabs}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
-      <AttestationCount># Attestations</AttestationCount>
-      <Attestations attestations={attestations}/>
+      {isConnected
+        ? <>
+          <H2>Attestations for {shortenEthereumAddress(address)}</H2>
+          <PillTab
+            tabs={tabs}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+          <AttestationCount># Attestations</AttestationCount>
+          <Attestations attestations={attestations}/>
+        </>
+        : <H2>Please connect wallet.</H2>
+      }
     </ Main>
   )
 }
