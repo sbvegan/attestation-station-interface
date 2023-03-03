@@ -8,11 +8,11 @@ import {
 } from '@rainbow-me/rainbowkit'
 
 import {
-  chain,
   configureChains,
   createClient,
   WagmiConfig
 } from 'wagmi'
+import { optimismGoerli, optimism } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
 import Content from './components/Content'
@@ -27,7 +27,7 @@ const ContentWrapper = styled.div`
 `
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.optimism, chain.optimismGoerli],
+  [optimism, optimismGoerli],
   [publicProvider()]
 )
 
