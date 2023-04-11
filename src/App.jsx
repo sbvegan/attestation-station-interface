@@ -3,10 +3,15 @@ import styled from 'styled-components'
 
 import '@rainbow-me/rainbowkit/styles.css'
 import {
-  getDefaultWallets,
+  connectorsForWallets,
   RainbowKitProvider
 } from '@rainbow-me/rainbowkit'
-
+import {
+  injectedWallet,
+  coinbaseWallet,
+  metaMaskWallet,
+  rainbowWallet
+} from '@rainbow-me/rainbowkit/wallets'
 import {
   configureChains,
   createClient,
@@ -31,10 +36,17 @@ const { chains, provider, webSocketProvider } = configureChains(
   [publicProvider()]
 )
 
-const { connectors } = getDefaultWallets({
-  appName: 'Attestation Station Interface',
-  chains
-})
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      injectedWallet({ chains }),
+      rainbowWallet({ chains }),
+      coinbaseWallet({ chains }),
+      metaMaskWallet({ chains })
+    ]
+  }
+])
 
 const client = createClient({
   autoConnect: true,
@@ -49,7 +61,7 @@ export default function App () {
   return (
     <AppWrapper>
       <WagmiConfig client={client}>
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider modalSize='compact' chains={chains}>
           <Header
             activeContent={activeContent}
             setActiveContent={setActiveContent}
