@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@rainbow-me/rainbowkit": "^0.7.4",
+    "@rainbow-me/rainbowkit": "^0.12.0",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6",
-    "wagmi": "^0.7.12"
+    "wagmi": "^0.12.0"
   },
   "scripts": {
     "start": "react-scripts start",
