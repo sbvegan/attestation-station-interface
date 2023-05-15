@@ -60,7 +60,7 @@ const AboutAttestations = () => {
         <Link
           target="_blank"
           rel="noopener noreferrer"
-          href="https://community.optimism.io/docs/governance/attestation-station/#"
+          href="https://community.optimism.io/docs/identity/build/"
         >
             Official Optimism Documentation
         </Link>
