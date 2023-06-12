@@ -1,4 +1,7 @@
-# Attestation Station Interface
+# DEPRECATED - Attestation Station Interface
+
+Optimism has moved to [v1 AttestationStation](https://community.optimism.io/docs/identity/atst-v1/), this interface was for v0.
+
 An open source interface for Optimism's AttestationStation -- a data primative for making arbitrary attestations about Ethereum addresses -- [OP Labs' Official Documentation](https://community.optimism.io/docs/governance/attestation-station/#).
 
 [![attestationstation-interface](./attestationstation-interface.png)](https://youtu.be/rBesMSd0GzM)
